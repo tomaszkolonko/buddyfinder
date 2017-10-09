@@ -5,5 +5,5 @@ In the first version, we will most certainly build the whole activity creation, 
 
 If time allows we will add some extra features such as uploading pictures from the activities to create a Uni-Recreational album, enable commenting, publishing to other social networks, etc... We will see along the way which makes the most sense and what time allows us to do. 
 
-Technology wise we are only bound to Node.Js and GitHub sofar. Considering the application we plan to build a no-SQL DB will be most appropriate, we haven't chosen which one we will use yet. We will deploy our app on a PAAS, but here again, we haven't made a choice at this stage of the project.
+Technology wise we are only bound to Node.Js and GitHub sofar. Considering the application we think that a no-SQL DB will be most appropriate, we haven't chosen which one we will use yet. We will deploy our app on a PAAS, but here again, we haven't made a choice at this stage of the project.
 

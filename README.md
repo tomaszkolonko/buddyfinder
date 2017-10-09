@@ -3,7 +3,7 @@ You'd love to visit a contemporary art exposition but your better half is more o
 
 In the first version, we will most certainly build the whole activity creation, sharing and inviting/joining part. As well as the authentication and authorization for uni-be, fr, ne addresses. We also plan to build a responsive GUI such that it can be used on any screen.
 
-If time allows we will add some extra features such as uploading pictures from the activities to create a Uni-Recreational album, commenting, link with other social networks, etc... We will see along the way which makes the most sense and what time allows us to do. 
+If time allows we will add some extra features such as uploading pictures from the activities to create a Uni-Recreational album, enable commenting, publishing to other social networks, etc... We will see along the way which makes the most sense and what time allows us to do. 
 
 Technology wise we are only bound to Node.Js and GitHub sofar. Considering the application we plan to build a no-SQL DB will be most appropriate, we haven't chosen which one we will use yet. We will deploy our app on a PAAS, but here again, we haven't made a choice at this stage of the project.
 

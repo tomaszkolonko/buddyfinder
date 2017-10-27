@@ -4,10 +4,14 @@ const Hapi = require('hapi');
 const Good = require('good');
 const mongojs = require('mongojs');
 
+const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
+
 const server = new Hapi.Server();
 server.connection({ port: 3000, host: 'localhost' });
 
-server.app.db = mongojs('buddyfinder', ['activity']);  //<--- Added
+const db = 'buddyfinder';
+const collections = ['activity'];
+server.app.db = mongojs(mongoDBconnectionURL, collections);  //<--- Added
 
 server.app.db.on('error', function(err) {
     console.log('database error', err)

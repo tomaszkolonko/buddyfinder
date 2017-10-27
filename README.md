@@ -13,6 +13,7 @@ Technology wise we are only bound to Node.Js and GitHub so far. Considering the 
 ## Requirements
 
 - nodejs 4.x.x
+- mongodb 3.x
 - npm
 
 ## How to run it
@@ -30,4 +31,29 @@ Interact with the server from your browser.
 
 ## Dev Tools used
 
-- Postman is a very nice Chrome add-on or standalone application that allows to easily interact with the server and issue HTTP requests with or without body (JSON).
+- Postman is a very nice Chrome add-on or standalone application that allows to easily interact with the server and
+issue HTTP requests with or without body (JSON).
+
+## DB Schema
+
+The DB Schema should be build having the most frequent use cases in mind. Therefore the Schema should consist of one
+collection - the activity - and the users interested in this activity will be added to it or removed from it. So when Peter
+is interested in the activity running, with a regular single scan all users interested in this activity will be querried.
+First simple Schema iteration (up to date with code).
+
+```json
+{
+  _id: acitivity_id
+  name: name_of_activity
+  description: description_of_activity
+  tags: [tag_1, tag_2]
+  popularity: likes
+  users: [{
+    user: name
+    description: description_of_user
+  },{
+    user: name
+    description: description_of_user
+  }]
+}
+```

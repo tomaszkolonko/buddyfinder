@@ -2,9 +2,20 @@
 
 const Hapi = require('hapi');
 const Good = require('good');
+const mongojs = require('mongojs');
 
 const server = new Hapi.Server();
 server.connection({ port: 3000, host: 'localhost' });
+
+server.app.db = mongojs('buddyfinder', ['activity']);  //<--- Added
+
+server.app.db.on('error', function(err) {
+    console.log('database error', err)
+});
+
+server.app.db.on('connect', function() {
+    console.log('successfully connected to buddyfinder DB')
+});
 
 server.route({
     method: 'GET',
@@ -22,38 +33,6 @@ server.route({
     }
 });
 
-server.route({
-    method: 'GET',
-    path: '/activity',
-    handler: function(request, reply) {
-        reply('Retrieving a list of all activities...')
-    }
-})
-
-server.route({
-    method: ['PUT'],
-    path: '/activity',
-    handler: function (request, reply) {
-        reply('Adding new activites...')
-    }
-});
-
-server.route({
-    method: ['POST'],
-    path: '/activity/{activityString}/whoelse',
-    handler: function (request, reply) {
-        reply('Retrieving list of interested users in ' + encodeURIComponent(request.params.activityString) + ' ...')
-    }
-});
-
-server.route({
-    method: ['PUT'],
-    path: '/activity/{activityString}',
-    handler: function(request, reply) {
-        reply('Adding ' + encodeURIComponent(request.params.activityString) + ' to activites')
-    }
-});
-
 // inert is a plugin that will serve static webpages
 server.register(require('inert'), (err) => {
     if(err) {
@@ -68,7 +47,7 @@ server.register(require('inert'), (err) => {
     });
 });
 
-server.register({
+server.register([{
     register: Good,
     options: {
         reporters: {
@@ -84,7 +63,7 @@ server.register({
             }, 'stdout']
         }
     }
-}, (err) => {
+}, require('./routes/activities')], (err) => {
     if(err) {
         throw err;
     }
@@ -94,5 +73,8 @@ server.register({
             throw err;
         }
         server.log('info', 'Server running at: ' + server.info.uri);
+        console.log('Server running at: ' + server.info.uri);
     });
 });
+
+server.register

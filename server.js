@@ -5,8 +5,9 @@ const Good = require('good');
 const mongojs = require('mongojs');
 
 const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
+var port = parseInt(process.env.PORT) || 5000
 
-const server = new Hapi.Server(+process.env.PORT, '0.0.0.0');
+const server = new Hapi.Server(port, '0.0.0.0');
 //server.connection({ port: 3000, host: 'localhost' });
 //server.connection({host: 'https://blooming-fortress-94706.herokuapp.com/'})
 

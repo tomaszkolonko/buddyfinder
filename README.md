@@ -57,3 +57,16 @@ First simple Schema iteration (up to date with code).
   }]
 }
 ```
+## Working Routes
+
+  > GET / -> some stub
+  
+  > GET /hello -> Hello World example for static page
+  
+  > GET /user/{name} -> stub for {name}'s public profile
+
+  > GET /activities -> lists all activities in JSON format
+  
+  > GET /activities/{name} -> lists details of one activity in JSON format
+    
+  > POST /activities -> Creates new Document (payload must be in JSON) in activity collection

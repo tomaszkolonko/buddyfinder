@@ -17,13 +17,14 @@ Technology wise we are only bound to Node.Js and GitHub so far. Considering the 
 
 ## How to run it
 
-Clone this repository into a folder of your choice and run npm install in order to install all required nodejs packages:
+Clone this repository into a folder of your choice and run npm install in order to install all required nodejs packages
+and their dependencies:
 
 	npm install
 
 Then you are ready to run the server:
 
-	node server
+	npm start
 
 Interact with the server from your browser.
 

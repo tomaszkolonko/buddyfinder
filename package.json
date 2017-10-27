@@ -22,6 +22,7 @@
     "good-squeeze": "^5.0.2",
     "hapi": "^16.6.2",
     "inert": "^4.2.1",
-    "mongojs": "^2.4.1"
+    "mongojs": "^2.4.1",
+    "node-uuid": "^1.4.8"
   }
 }

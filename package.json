@@ -1,5 +1,5 @@
 {
-  "name": "buddyfinder",
+  "name": "buddyfinder2",
   "version": "1.0.0",
   "description": "Webengineering Project",
   "main": "server.js",
@@ -17,9 +17,10 @@
   },
   "homepage": "https://github.com/pmurena/buddyfinder#readme",
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "mongoose": "^4.12.3",
-    "morgan": "^1.9.0"
+    "good": "^7.3.0",
+    "good-console": "^6.4.0",
+    "good-squeeze": "^5.0.2",
+    "hapi": "^16.6.2",
+    "inert": "^4.2.1"
   }
 }

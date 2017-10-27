@@ -6,9 +6,9 @@ const mongojs = require('mongojs');
 
 const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
 
-const server = new Hapi.Server();
+const server = new Hapi.Server(~~process.env.PORT || 3000, '0.0.0.0');
 //server.connection({ port: 3000, host: 'localhost' });
-server.connection({host: 'https://blooming-fortress-94706.herokuapp.com/'})
+//server.connection({host: 'https://blooming-fortress-94706.herokuapp.com/'})
 
 const collections = ['activity'];
 server.app.db = mongojs(mongoDBconnectionURL, collections);  //<--- Added

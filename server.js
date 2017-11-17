@@ -4,6 +4,9 @@ const Hapi = require('hapi');
 const Good = require('good');
 const mongojs = require('mongojs');
 
+const BasicAuth = require('hapi-auth-basic');
+const Bcrypt = require('bcrypt');
+
 const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
 var port = parseInt(process.env.PORT);
 console.log(port);

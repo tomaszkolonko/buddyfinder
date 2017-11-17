@@ -12,6 +12,16 @@ var port = parseInt(process.env.PORT);
 console.log(port);
 console.log("**************");
 
+// first iteration of authentication against hardcoded user
+var users = {
+    future: {
+        id: '1',
+        username: 'future',
+        password: '$2a$04$YPy8WdAtWswed8b9MfKixebJkVUhEZxQCrExQaxzhcdR2xMmpSJiG'  // 'studio'
+    }
+}
+
+
 const server = new Hapi.Server();
 server.connection({port : process.env.PORT ||3000 });
 //server._port = port;
@@ -45,19 +55,7 @@ server.route({
     }
 });
 
-// inert is a plugin that will serve static webpages
-server.register(require('inert'), (err) => {
-    if(err) {
-        throw err;
-    }
-    server.route({
-        method: 'GET',
-        path: '/hello',
-        handler: function(request, reply) {
-            reply.file('./public/hello.html');
-        }
-    });
-});
+
 
 server.register([{
     register: Good,
@@ -75,10 +73,45 @@ server.register([{
             }, 'stdout']
         }
     }
-}, require('./routes/activities')], (err) => {
+}, require('./routes/activities'), require('inert'), require('hapi-auth-basic')], (err) => {
     if(err) {
         throw err;
     }
+
+    server.route({
+        method: 'GET',
+        path: '/hello',
+        handler: function(request, reply) {
+            reply.file('./public/hello.html');
+        }
+    });
+
+    // validation function used for hapi-auth-basic
+    var basicValidation  = function (request, username, password, callback) {
+        var user = users[ username ];
+
+        if (!user) {
+            return callback(null, false);
+        }
+
+        Bcrypt.compare(password, user.password, function (err, isValid) {
+            callback(err, isValid, { id: user.id, username: user.username })
+        })
+    };
+
+
+    server.auth.strategy('simple', 'basic', { validateFunc: basicValidation });
+
+    server.route({
+        method: 'GET',
+        path: '/private-route',
+        config: {
+            auth: 'simple',
+            handler: function (request, reply) {
+                reply('Yeah! This message is only available for authenticated users!')
+            }
+        }
+    });
 
     server.start((err) => {
         if(err) {
@@ -87,5 +120,6 @@ server.register([{
         server.log('info', 'Server running at: ' + server.info.uri);
     });
 });
+
 
 server.register

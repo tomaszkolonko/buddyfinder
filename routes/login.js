@@ -1,7 +1,5 @@
 var Boom = require('boom')
 var Bcrypt = require('bcrypt')
-var Users = require('../users-db')
-
 
 exports.register = function (server, options, next) {
 
@@ -48,19 +46,13 @@ exports.register = function (server, options, next) {
                 }
 
                 var username = request.payload.username;
-                var password = request.payload.password; // TZ_to be deleted afterwards
-
-                console.log("*** " + username);
-                console.log("*** " + password);
+                var password = request.payload.password;
 
                 db.users.find({username: username}, function(err, docs) {
 
                     if (err) {
                         return reply(Boom.wrap(err, 'Internal MongoDB error'));
                     }
-                    console.log("______________");
-                    console.dir(docs);
-                    console.dir(docs[0]);
                     if (!docs[0]) {
                         return reply(Boom.notFound('No user registered with given credentials'))
                     }

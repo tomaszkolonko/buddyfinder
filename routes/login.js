@@ -2,10 +2,12 @@ var Boom = require('boom')
 var Bcrypt = require('bcrypt')
 var Users = require('../users-db')
 
-// const db = server.app.db;
 
-var routes = [
-    {
+exports.register = function (server, options, next) {
+
+    const db = server.app.db;
+
+    server.route({
         method: 'GET',
         path: '/',
         config: {
@@ -26,8 +28,9 @@ var routes = [
                 reply('Not yet authenticated... -> index')
             }
         }
-    },
-    {
+    });
+
+    server.route({
         method: 'POST',
         path: '/',
         config: {
@@ -45,31 +48,38 @@ var routes = [
                 }
 
                 var username = request.payload.username;
+                var password = request.payload.password; // TZ_to be deleted afterwards
 
-                console.log("***" + username);
+                console.log("*** " + username);
+                console.log("*** " + password);
 
-                var user = Users[ username ];
-                console.log("from DB: " + user);
+                db.users.find({username: username}, function(err, docs) {
 
-                if (!user) {
-                    return reply(Boom.notFound('No user registered with given credentials'))
-                }
-
-                var password = request.payload.password
-
-                return Bcrypt.compare(password, user.password, function (err, isValid) {
-                    if (isValid) {
-                        request.server.log('info', 'user authentication successful')
-                        request.cookieAuth.set(user);
-                        return reply('is authenticated already... -> profile (/ GET from bcrypt)')
+                    if (err) {
+                        return reply(Boom.wrap(err, 'Internal MongoDB error'));
+                    }
+                    console.log("______________");
+                    console.dir(docs);
+                    console.dir(docs[0]);
+                    if (!docs[0]) {
+                        return reply(Boom.notFound('No user registered with given credentials'))
                     }
 
-                    reply('Not yet authenticated... -> index')
-                })
+                    Bcrypt.compare(password, docs[0].password, function (err, isValid) {
+                        if (isValid) {
+                            request.server.log('info', 'user authentication successful')
+                            request.cookieAuth.set(docs[0]);
+                            return reply('is authenticated now... -> profile (/ GET from bcrypt)')
+                        }
+
+                        reply('wrong password... -> index')
+                    });
+                });
             }
         }
-    },
-    {
+    });
+
+    server.route({
         method: 'GET',
         path: '/logout',
         config: {
@@ -79,7 +89,11 @@ var routes = [
                 reply('No more authenticated... -> index')
             }
         }
-    }
-]
+    });
 
-module.exports = routes
+    return next();
+};
+
+exports.register.attributes = {
+    name: 'routes-login'
+};

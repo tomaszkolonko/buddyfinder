@@ -109,7 +109,8 @@ server.register([
 
 
     var login_route = require('./routes/login');
-    server.route(login_route);
+    server.register(login_route);
+
 
     server.log('info', 'Routes registered');
 

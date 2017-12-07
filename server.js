@@ -8,9 +8,6 @@ const BasicAuth = require('hapi-auth-basic');
 const Bcrypt = require('bcrypt');
 
 const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
-var port = parseInt(process.env.PORT);
-console.log(port);
-console.log("**************");
 
 // first iteration of authentication against hardcoded user
 var users = {
@@ -24,11 +21,8 @@ var users = {
 
 const server = new Hapi.Server();
 server.connection({port : process.env.PORT ||3000 });
-//server._port = port;
-//server.start();
-//server.connection({host: 'https://blooming-fortress-94706.herokuapp.com/'})
 
-const collections = ['activity'];
+const collections = ['activity', 'users'];
 server.app.db = mongojs(mongoDBconnectionURL, collections);  //<--- Added
 
 server.app.db.on('error', function(err) {
@@ -55,8 +49,6 @@ server.route({
     }
 });
 
-
-
 server.register([{
     register: Good,
     options: {
@@ -73,7 +65,10 @@ server.register([{
             }, 'stdout']
         }
     }
-}, require('./routes/activities'), require('inert'), require('hapi-auth-basic')], (err) => {
+},
+    require('./routes/activities'),
+    require('inert'),
+    require('hapi-auth-basic')], (err) => {
     if(err) {
         throw err;
     }
@@ -120,6 +115,3 @@ server.register([{
         server.log('info', 'Server running at: ' + server.info.uri);
     });
 });
-
-
-server.register

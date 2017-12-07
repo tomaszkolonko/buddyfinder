@@ -4,70 +4,55 @@ const Boom = require('boom');
 const uuid = require('node-uuid');
 const Joi = require('joi');
 
-exports.register = function (server, options, next) {
+module.exports = [{
+    method: 'GET',
+    path: '/activities',
+    handler: function (request, reply) {
+        console.log("inside /activities GET");
 
-    const db = server.app.db;
+        this.db.activity.find((err, docs) => {
 
-    server.route({
-        method: 'GET',
-        path: '/activities',
-        handler: function (request, reply) {
-            console.log("inside /activities GET");
+            if (err) {
+                return reply(Boom.wrap(err, 'Internal MongoDB error'));
+            }
 
-            db.activity.find((err, docs) => {
+            reply(docs);
+        });
 
-                if (err) {
-                    return reply(Boom.wrap(err, 'Internal MongoDB error'));
-                }
+    }
+}, {
+    method: 'GET',
+    path: '/activities/{name}',
+    handler: function (request, reply) {
+        console.log("inside /activities/{name} GET");
 
-                reply(docs);
-            });
+        this.db.activity.findOne({
+            name: request.params.name
+        }, (err, doc) => {
+            if(err) {
+                return reply(Boom.wrap(err, 'Internal MongoDB error'));
+            }
+            if(!doc) {
+                return reply(Boom.notFound());
+            }
+            reply(doc);
+        });
+    }
+}, {
+    method: 'POST',
+    path: '/activities',
+    handler: function (request, reply) {
+        const activity = request.payload;
 
-        }
-    });
+        console.log("inside /activities POST");
+        //Create a new activity
+        activity._id = uuid.v1();
 
-    server.route({
-        method: 'GET',
-        path: '/activities/{name}',
-        handler: function (request, reply) {
-            console.log("inside /activities/{name} GET");
-
-            db.activity.findOne({
-                name: request.params.name
-            }, (err, doc) => {
-                if(err) {
-                    return reply(Boom.wrap(err, 'Internal MongoDB error'));
-                }
-                if(!doc) {
-                    return reply(Boom.notFound());
-                }
-                reply(doc);
-            });
-        }
-    });
-
-    server.route({
-        method: 'POST',
-        path: '/activities',
-        handler: function (request, reply) {
-            const activity = request.payload;
-
-            console.log("inside /activities POST");
-            //Create a new activity
-            activity._id = uuid.v1();
-
-            db.activity.save(activity, (err, result) => {
-                if(err) {
-                    return reply(Boom.wrapper(err, 'Internal MongoDB error'));
-                }
-                reply(activity);
-            });
-        }
-    });
-
-    return next();
-};
-
-exports.register.attributes = {
-    name: 'routes-activities'
-};
+        this.db.activity.save(activity, (err, result) => {
+            if(err) {
+                return reply(Boom.wrapper(err, 'Internal MongoDB error'));
+            }
+            reply(activity);
+        });
+    }
+}];

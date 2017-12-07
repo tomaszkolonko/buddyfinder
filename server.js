@@ -33,6 +33,9 @@ server.app.db.on('connect', function() {
     console.log('successfully connected to buddyfinder DB')
 });
 
+// make the db accessible from everywhere whitin this application
+server.bind({ db: server.app.db });
+
 server.route({
     method: 'GET',
     path: '/',
@@ -66,7 +69,6 @@ server.register([{
         }
     }
 },
-    require('./routes/activities'),
     require('inert'),
     require('hapi-auth-basic')], (err) => {
     if(err) {
@@ -80,6 +82,8 @@ server.register([{
             reply.file('./public/hello.html');
         }
     });
+
+    server.route(require('./routes/activities'));
 
     // validation function used for hapi-auth-basic
     var basicValidation  = function (request, username, password, callback) {

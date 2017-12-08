@@ -39,4 +39,8 @@ module.exports = [{
             mode: 'required'
         }
     }
+}, {
+    method: 'GET',
+    path: '/logout',
+    handler: Actions.logout
 }];

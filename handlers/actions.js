@@ -3,7 +3,7 @@
 const Wreck = require('wreck');
 
 exports.login = function (request, reply) {
-
+    
     const apiUrl = this.apiBaseUrl + '/login';
 
     Wreck.post(apiUrl, {

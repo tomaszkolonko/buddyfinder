@@ -2,6 +2,7 @@
 
 const uuid = require('node-uuid');
 const Boom = require('boom');
+const Wreck = require('wreck');
 
 exports.getAll = function (request, reply) {
 

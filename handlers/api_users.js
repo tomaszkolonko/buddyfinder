@@ -20,8 +20,6 @@ exports.login = function (request, reply) {
         }
 
         const user = doc;
-        console.log(request.payload.password);
-        console.log(user.password);
 
         Bcrypt.compare(request.payload.password, user.password, (err, res) => {
 

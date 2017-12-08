@@ -11,6 +11,8 @@ exports.login = function (request, reply) {
         json: true
     }, (err, res, payload) => {
 
+        console.log(payload);
+
         if (err) {
             throw err;
         }

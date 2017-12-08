@@ -43,17 +43,17 @@ First simple Schema iteration (up to date with code).
 
 ```json
 {
-  _id: acitivity_id
-  name: name_of_activity
-  description: description_of_activity
-  tags: [tag_1, tag_2]
-  popularity: likes
-  users: [{
-    user: name
-    description: description_of_user
+  "_id": "acitivity_id",
+  "name": "name_of_activity",
+  "description": "description_of_activity",
+  "tags": [tag_1, tag_2],
+  "popularity": "likes",
+  "users": [{
+    "user": "name",
+    "description": "description_of_user"
   },{
-    user: name
-    description: description_of_user
+    "user": "name",
+    "description": "description_of_user"
   }]
 }
 ```
@@ -63,10 +63,10 @@ First simple Schema iteration (up to date with code).
   
   > GET /hello -> Hello World example for static page
   
-  > GET /user/{name} -> stub for {name}'s public profile
+  > GET /api/user/{name} -> stub for {name}'s public profile
 
-  > GET /activities -> lists all activities in JSON format
+  > GET /api/activities -> lists all activities in JSON format
   
-  > GET /activities/{name} -> lists details of one activity in JSON format
+  > GET /api/activities/{name} -> lists details of one activity in JSON format
     
-  > POST /activities -> Creates new Document (payload must be in JSON) in activity collection
+  > POST /api/activities -> Creates new Document (payload must be in JSON) in activity collection

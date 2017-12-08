@@ -3,7 +3,6 @@
 const uuid = require('node-uuid');
 
 exports.getAll = function (request, reply) {
-    console.log("inside /activities GET");
 
     this.db.activity.find((err, docs) => {
 
@@ -16,7 +15,6 @@ exports.getAll = function (request, reply) {
 };
 
 exports.getOne = function (request, reply) {
-    console.log("inside /activities/{name} GET");
 
     this.db.activity.findOne({
         name: request.params.name
@@ -34,7 +32,6 @@ exports.getOne = function (request, reply) {
 exports.createOne = function (request, reply) {
     const activity = request.payload;
 
-    console.log("inside /activities POST");
     //Create a new activity
     activity._id = uuid.v1();
 

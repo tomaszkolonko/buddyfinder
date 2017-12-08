@@ -9,16 +9,6 @@ const Bcrypt = require('bcrypt');
 
 const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
 
-// first iteration of authentication against hardcoded user
-var users = {
-    future: {
-        id: '1',
-        username: 'future',
-        password: '$2a$04$YPy8WdAtWswed8b9MfKixebJkVUhEZxQCrExQaxzhcdR2xMmpSJiG'  // 'studio'
-    }
-}
-
-
 const server = new Hapi.Server();
 server.connection({port : process.env.PORT ||3000 });
 
@@ -36,21 +26,27 @@ server.app.db.on('connect', function() {
 // make the db accessible from everywhere whitin this application
 server.bind({ db: server.app.db });
 
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply) {
-        reply('Some welcome Screen -> index.html or whatever');
-    }
-});
+const validateFunc = function (token, callback) {
 
-server.route({
-    method: 'GET',
-    path: '/user/{name}',
-    handler: function (request, reply) {
-        reply('Retrieving ' + encodeURIComponent(request.params.name) + '\'s public profile!');
-    }
-});
+    db.get('SELECT * FROM users WHERE token = ?', [token], (err, result) => {
+
+        if (err) {
+            return callback(err, false);
+        }
+
+        const user = result;
+
+        if (!user) {
+            return callback(null, false);
+        }
+
+        callback(null, true, {
+            id: user.id,
+            username: user.username
+        });
+
+    });
+};
 
 server.register([{
     register: Good,
@@ -70,10 +66,15 @@ server.register([{
     }
 },
     require('inert'),
-    require('hapi-auth-basic')], (err) => {
+    require('hapi-auth-basic'),
+    require('hapi-auth-bearer-token')], (err) => {
     if(err) {
         throw err;
     }
+
+    server.auth.strategy('api', 'bearer-access-token', {
+        validateFunc: validateFunc
+    });
 
     server.route({
         method: 'GET',
@@ -84,33 +85,9 @@ server.register([{
     });
 
     server.route(require('./routes/activities'));
-
-    // validation function used for hapi-auth-basic
-    var basicValidation  = function (request, username, password, callback) {
-        var user = users[ username ];
-
-        if (!user) {
-            return callback(null, false);
-        }
-
-        Bcrypt.compare(password, user.password, function (err, isValid) {
-            callback(err, isValid, { id: user.id, username: user.username })
-        })
-    };
+    server.route(require('./routes/users'));
 
 
-    server.auth.strategy('simple', 'basic', { validateFunc: basicValidation });
-
-    server.route({
-        method: 'GET',
-        path: '/private-route',
-        config: {
-            auth: 'simple',
-            handler: function (request, reply) {
-                reply('Yeah! This message is only available for authenticated users!')
-            }
-        }
-    });
 
     server.start((err) => {
         if(err) {

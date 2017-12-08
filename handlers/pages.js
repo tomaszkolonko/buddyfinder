@@ -29,6 +29,15 @@ exports.home = function (request, reply) {
     });
 };
 
+exports.createActivity = function (request, reply) {
+
+    // it uses the layout for all views, and adds the required handlebars as needed
+    // into {{{content}}} placeholder !!!
+    reply.view('create', {
+        user: request.auth.credentials
+    });
+};
+
 exports.login = function (request, reply) {
 
     // it uses the layout for all views, and adds the required handlebars as needed

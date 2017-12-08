@@ -28,10 +28,13 @@ exports.login = function (request, reply) {
     });
 };
 
-exports.createRecipe = function (request, reply) {
+exports.createActivity = function (request, reply) {
 
-    const apiUrl = this.apiBaseUrl + '/recipes';
+    const apiUrl = this.apiBaseUrl + '/activities';
+    console.log(apiUrl);
     const token = request.auth.credentials.token;
+    console.log(token);
+    console.log("*********");
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify(request.payload),

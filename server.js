@@ -32,7 +32,7 @@ server.bind({
 
 const validateFunc = function (token, callback) {
 
-    this.db.users.findOne({
+    server.app.db.users.findOne({
         token: token
     }, (err, doc) => {
         if(err) {

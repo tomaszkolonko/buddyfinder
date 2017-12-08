@@ -21,4 +21,22 @@ module.exports = [{
     path: '/{param*}',
     handler: Assets.servePublicDirectory
 
+}, {
+    method: 'GET',
+    path: '/create',
+    handler: Pages.createActivity,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
+}, {
+    method: 'POST',
+    path: '/create',
+    handler: Actions.createActivity,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
 }];

@@ -6,14 +6,14 @@ const Joi = require('joi');
 
 module.exports = [{
     method: 'GET',
-    path: '/activities',
+    path: '/api/activities',
     handler: Activities.getAll
 }, {
     method: 'GET',
-    path: '/activities/{name}',
+    path: '/api/activities/{name}',
     handler: Activities.getOne
 }, {
     method: 'POST',
-    path: '/activities',
+    path: '/api/activities',
     handler: Activities.createOne
 }];

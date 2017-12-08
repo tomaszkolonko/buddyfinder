@@ -6,6 +6,6 @@ const Joi = require('joi');
 
 module.exports = [{
     method: 'GET',
-    path: '/user/{name}',
+    path: '/api/user/{name}',
     handler: Users.getOne
 }];

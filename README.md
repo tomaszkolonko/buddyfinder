@@ -46,7 +46,7 @@ First simple Schema iteration (up to date with code).
   "_id": "acitivity_id",
   "name": "name_of_activity",
   "description": "description_of_activity",
-  "tags": [tag_1, tag_2],
+  "tags": "[tag_1, tag_2]",
   "popularity": "likes",
   "users": [{
     "user": "name",

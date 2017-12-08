@@ -1,8 +1,6 @@
 'use strict';
 
-const Activities = require('../handlers/activities');
-
-const Joi = require('joi');
+const Activities = require('../handlers/api_activities');
 
 module.exports = [{
     method: 'GET',
@@ -15,5 +13,8 @@ module.exports = [{
 }, {
     method: 'POST',
     path: '/api/activities',
+    config: {
+        auth: 'api'
+    },
     handler: Activities.createOne
 }];

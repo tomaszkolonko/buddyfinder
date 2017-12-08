@@ -23,28 +23,28 @@ server.app.db.on('connect', function() {
     console.log('successfully connected to buddyfinder DB')
 });
 
-// make the db accessible from everywhere whitin this application
-server.bind({ db: server.app.db });
+server.bind({
+    apiBaseUrl: 'http://localhost:3000/api',
+    webBaseUrl: 'http://localhost:3000',
+    db: server.app.db
+});
+
 
 const validateFunc = function (token, callback) {
 
-    db.get('SELECT * FROM users WHERE token = ?', [token], (err, result) => {
-
-        if (err) {
-            return callback(err, false);
+    this.db.users.findOne({
+        token: token
+    }, (err, doc) => {
+        if(err) {
+            return reply(Boom.wrap(err, 'Internal MongoDB error'));
         }
-
-        const user = result;
-
-        if (!user) {
-            return callback(null, false);
+        if(!doc) {
+            return reply(Boom.notFound());
         }
-
         callback(null, true, {
-            id: user.id,
-            username: user.username
+            id: doc.id,
+            username: doc.username
         });
-
     });
 };
 
@@ -66,8 +66,10 @@ server.register([{
     }
 },
     require('inert'),
-    require('hapi-auth-basic'),
-    require('hapi-auth-bearer-token')], (err) => {
+    //require('hapi-auth-basic'),
+    require('hapi-auth-bearer-token'),
+    require('vision'),
+    require('hapi-auth-cookie')], (err) => {
     if(err) {
         throw err;
     }
@@ -75,17 +77,26 @@ server.register([{
     server.auth.strategy('api', 'bearer-access-token', {
         validateFunc: validateFunc
     });
-
-    server.route({
-        method: 'GET',
-        path: '/hello',
-        handler: function(request, reply) {
-            reply.file('./public/hello.html');
-        }
+    server.auth.strategy('session', 'cookie', 'try', {
+        password: '70fe4f26ff9bcb5aab079875cadeec09',
+        isSecure: false
+    });
+    server.views({
+        engines: {
+            hbs: require('handlebars')
+        },
+        relativeTo: __dirname,
+        path: './views',
+        layoutPath: './views/layout',
+        layout: true,
+        isCached: false,
+        helpersPath: './views/helpers',
+        partialsPath: './views/partials'
     });
 
-    server.route(require('./routes/activities'));
-    server.route(require('./routes/users'));
+    server.route(require('./routes/api_activities'));
+    server.route(require('./routes/api_users'));
+    server.route(require('./routes/pages'));
 
 
 

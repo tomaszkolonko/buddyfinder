@@ -4,9 +4,6 @@ const Hapi = require('hapi');
 const Good = require('good');
 const mongojs = require('mongojs');
 
-const BasicAuth = require('hapi-auth-basic');
-const Bcrypt = require('bcrypt');
-
 const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
 
 const server = new Hapi.Server();
@@ -29,9 +26,7 @@ server.bind({
     db: server.app.db
 });
 
-
 const validateFunc = function (token, callback) {
-
     server.app.db.users.findOne({
         token: token
     }, (err, doc) => {
@@ -66,7 +61,6 @@ server.register([{
     }
 },
     require('inert'),
-    //require('hapi-auth-basic'),
     require('hapi-auth-bearer-token'),
     require('vision'),
     require('hapi-auth-cookie')], (err) => {
@@ -77,10 +71,12 @@ server.register([{
     server.auth.strategy('api', 'bearer-access-token', {
         validateFunc: validateFunc
     });
+
     server.auth.strategy('session', 'cookie', 'try', {
         password: '70fe4f26ff9bcb5aab079875cadeec09',
         isSecure: false
     });
+
     server.views({
         engines: {
             hbs: require('handlebars')
@@ -97,8 +93,6 @@ server.register([{
     server.route(require('./routes/api_activities'));
     server.route(require('./routes/api_users'));
     server.route(require('./routes/pages'));
-
-
 
     server.start((err) => {
         if(err) {

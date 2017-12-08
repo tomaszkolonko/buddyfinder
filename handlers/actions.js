@@ -51,6 +51,10 @@ exports.createActivity = function (request, reply) {
     });
 };
 
+exports.register = function (request, reply) {
+    reply.view("STUB FOR POST REGISTRATION");
+}
+
 exports.logout = function (request, reply) {
 
     request.cookieAuth.clear();

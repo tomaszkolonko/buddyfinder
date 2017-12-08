@@ -1,10 +1,14 @@
-<div id="login-form">
+<div id="registration-form">
     <div>
-        <h4>Login</h4>
+        <h4>Registration - New User</h4>
     </div>
-    <form action="/login" method='POST'>
+    <form action="/register" method='POST'>
         <div class="form-control">
-            <label for="username">Username:</label>
+            <label for="username">Username: </label>
+            <input type="text" name="username">
+        </div>
+        <div class="form-control">
+            <label for="username">Email: </label>
             <input type="text" name="username">
         </div>
         <div class="form-control">
@@ -15,5 +19,4 @@
             <input type="submit" value="Submit">
         </div>
     </form>
-    <div>Use "jane" or "john" for the user and "secret" for the password....</div>
 </div>

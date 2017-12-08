@@ -38,6 +38,10 @@ exports.createActivity = function (request, reply) {
     });
 };
 
+exports.register = function (request, reply) {
+    reply.view('register');
+};
+
 exports.login = function (request, reply) {
 
     // it uses the layout for all views, and adds the required handlebars as needed

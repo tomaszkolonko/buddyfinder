@@ -33,6 +33,7 @@ Interact with the server from your browser.
 
 - Postman is a very nice Chrome add-on or standalone application that allows to easily interact with the server and
 issue HTTP requests with or without body (JSON).
+- cURL (https://curl.haxx.se/docs/manpage.html)
 
 ## DB Schema
 
@@ -57,11 +58,7 @@ First simple Schema iteration (up to date with code).
   }]
 }
 ```
-## Working Routes
-
-  > GET / -> some stub
-  
-  > GET /hello -> Hello World example for static page
+## Working Routes - API
   
   > GET /api/user/{name} -> stub for {name}'s public profile
 
@@ -70,3 +67,17 @@ First simple Schema iteration (up to date with code).
   > GET /api/activities/{name} -> lists details of one activity in JSON format
     
   > POST /api/activities -> Creates new Document (payload must be in JSON) in activity collection
+  
+  > POST /api/login -> authenticate the user and return token
+  
+## Working Routes - API
+
+  > GET / -> landing page
+  
+  > GET /login -> login page
+  > POST /login -> authentication of the user
+  
+  > GET /registration -> registration page
+  
+  > GET /create -> creation page
+  > POST /create -> create new activity

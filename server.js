@@ -9,16 +9,6 @@ const Bcrypt = require('bcrypt');
 
 const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
 
-// first iteration of authentication against hardcoded user
-var users = {
-    future: {
-        id: '1',
-        username: 'future',
-        password: '$2a$04$YPy8WdAtWswed8b9MfKixebJkVUhEZxQCrExQaxzhcdR2xMmpSJiG'  // 'studio'
-    }
-}
-
-
 const server = new Hapi.Server();
 server.connection({port : process.env.PORT ||3000 });
 
@@ -35,22 +25,6 @@ server.app.db.on('connect', function() {
 
 // make the db accessible from everywhere whitin this application
 server.bind({ db: server.app.db });
-
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply) {
-        reply('Some welcome Screen -> index.html or whatever');
-    }
-});
-
-server.route({
-    method: 'GET',
-    path: '/user/{name}',
-    handler: function (request, reply) {
-        reply('Retrieving ' + encodeURIComponent(request.params.name) + '\'s public profile!');
-    }
-});
 
 server.register([{
     register: Good,
@@ -84,6 +58,7 @@ server.register([{
     });
 
     server.route(require('./routes/activities'));
+    server.route(require('./routes/users'));
 
     // validation function used for hapi-auth-basic
     var basicValidation  = function (request, username, password, callback) {

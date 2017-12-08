@@ -1,8 +1,5 @@
 'use strict';
 
-const Boom = require('boom');
-
-
 const Activities = require('../handlers/activities');
 
 const Joi = require('joi');

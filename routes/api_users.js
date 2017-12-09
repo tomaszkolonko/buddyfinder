@@ -16,4 +16,8 @@ module.exports = [{
         }
     },
     handler: Users.login
+}, {
+    method: 'POST',
+    path: '/api/register',
+    handler: Users.register
 }];

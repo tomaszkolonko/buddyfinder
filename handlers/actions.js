@@ -31,10 +31,8 @@ exports.login = function (request, reply) {
 exports.createActivity = function (request, reply) {
 
     const apiUrl = this.apiBaseUrl + '/activities';
-    console.log(apiUrl);
+
     const token = request.auth.credentials.token;
-    console.log(token);
-    console.log("*********");
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify(request.payload),
@@ -52,7 +50,19 @@ exports.createActivity = function (request, reply) {
 };
 
 exports.register = function (request, reply) {
-    reply.view("STUB FOR POST REGISTRATION");
+
+    const apiUrl = this.apiBaseUrl + '/register';
+
+    Wreck.post(apiUrl, {
+        payload: JSON.stringify(request.payload),
+
+    }, (err, res, payload) => {
+        if(err) {
+            throw err;
+        }
+        reply.redirect(this.webBaseUrl + '/login');
+    })
+
 }
 
 exports.logout = function (request, reply) {

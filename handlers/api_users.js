@@ -2,6 +2,8 @@
 
 const Bcrypt = require('bcrypt-nodejs');
 const Boom = require('boom');
+const uuid = require('node-uuid');
+const JSONWebToken = require('jsonwebtoken');
 
 exports.getOne = function (request, reply) {
     reply('Retrieving ' + encodeURIComponent(request.params.name) + '\'s public profile!');
@@ -34,6 +36,29 @@ exports.login = function (request, reply) {
             reply({
                 token: user.token
             });
+        });
+    });
+};
+
+exports.register = function (request, reply) {
+    const user = request.payload;
+
+    const token = JSONWebToken.sign({ token: user.name }, 'AppleCrazyFudgeFortressOverTheLamb');
+    user["token"] = token;
+
+    Bcrypt.hash(user.password, null, null, (err, hash) => {
+        if(err) {
+            throw err;
+        }
+        user["password"] = hash;
+
+        user._id = uuid.v1();
+
+        this.db.users.save(user, (err, result) => {
+            if(err) {
+                return reply(Boom.wrapper(err, 'Internal MongoDB error'));
+            }
+            reply(user);
         });
     });
 };

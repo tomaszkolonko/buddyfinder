@@ -50,10 +50,5 @@ module.exports = [{
 }, {
     method: 'POST',
     path: '/register',
-    handler: Actions.register,
-    config: {
-        auth: {
-            mode: 'required'
-        }
-    }
+    handler: Actions.register
 }];

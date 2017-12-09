@@ -43,11 +43,8 @@ exports.login = function (request, reply) {
 exports.register = function (request, reply) {
     const user = request.payload;
 
-    console.log(user);
-    console.dir(user);
     const token = JSONWebToken.sign({ token: user.name }, 'AppleCrazyFudgeFortressOverTheLamb');
     user["token"] = token;
-
 
     Bcrypt.hash(user.password, null, null, (err, hash) => {
         if(err) {
@@ -55,7 +52,6 @@ exports.register = function (request, reply) {
         }
         user["password"] = hash;
 
-        //Create a new user
         user._id = uuid.v1();
 
         this.db.users.save(user, (err, result) => {

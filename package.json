@@ -29,6 +29,7 @@
     "hapi-auth-bearer-token": "^5.1.0",
     "hapi-auth-cookie": "^7.0.0",
     "inert": "^4.2.1",
+    "jsonwebtoken": "^8.1.0",
     "mongojs": "^2.4.1",
     "node-uuid": "^1.4.8",
     "vision": "^4.1.1",

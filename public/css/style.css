@@ -254,3 +254,11 @@ h1, h2, h3, a {
     margin-top: 20px;
     line-height: 12px;
 }
+
+#formErrors {
+    color: #000;
+}
+
+#formErrors > div > p {
+    padding-left: 1em;
+}

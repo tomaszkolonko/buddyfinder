@@ -16,6 +16,29 @@ module.exports = [{
 }, {
     method: 'POST',
     path: '/login',
+    config: {
+        validate: {
+            payload: {
+                username: Joi.string().required(),
+                password: Joi.string().min(6).max(8).required()
+            },
+            options: {
+                abortEarly: false
+            },
+            failAction: function (request, reply, source, error) {
+                const errors = {};
+                const details = error.data.details;
+                for(let i = 0; i < details.length; ++i) {
+                    if(!errors.hasOwnProperty(details[i].path)) {
+                        errors[details[i].path] = details[i].message;
+                    }
+                }
+                reply.view('login', {
+                    errors: errors
+                }).code(400);
+            }
+        }
+    },
     handler: Actions.login
 }, {
     method: 'GET',

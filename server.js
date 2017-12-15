@@ -92,7 +92,8 @@ server.register([{
 
     server.route(require('./routes/api_activities'));
     server.route(require('./routes/api_users'));
-    server.route(require('./routes/pages'));
+    server.route(require('./routes/web_users'));
+    server.route(require('./routes/web_activities'));
 
     server.start((err) => {
         if(err) {

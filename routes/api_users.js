@@ -1,12 +1,12 @@
 'use strict';
 
-const Users = require('../handlers/api_users');
+const ApiUsers = require('../handlers/api_users');
 const Joi = require('joi');
 
 module.exports = [{
     method: 'GET',
     path: '/api/user/{name}',
-    handler: Users.getOne
+    handler: ApiUsers.getOne
 }, {
     method: 'POST',
     path: '/api/login',
@@ -25,7 +25,7 @@ module.exports = [{
             }
         }
     },
-    handler: Users.login
+    handler: ApiUsers.login
 }, {
     method: 'POST',
     path: '/api/register',
@@ -41,5 +41,5 @@ module.exports = [{
             }
         }
     },
-    handler: Users.register
+    handler: ApiUsers.register
 }];

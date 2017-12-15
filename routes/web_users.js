@@ -1,6 +1,6 @@
 'use strict';
 
-const Pages = require('../handlers/pages');
+const WebUsers = require('../handlers/web_users');
 const Assets = require('../handlers/assets');
 const Actions = require('../handlers/actions');
 const Joi = require('joi');
@@ -8,11 +8,11 @@ const Joi = require('joi');
 module.exports = [{
     method: 'GET',
     path: '/',
-    handler: Pages.home
+    handler: WebUsers.home
 }, {
     method: 'GET',
     path: '/login',
-    handler: Pages.login
+    handler: WebUsers.login
 }, {
     method: 'POST',
     path: '/login',
@@ -47,30 +47,12 @@ module.exports = [{
 
 }, {
     method: 'GET',
-    path: '/create',
-    handler: Pages.createActivity,
-    config: {
-        auth: {
-            mode: 'required'
-        }
-    }
-}, {
-    method: 'POST',
-    path: '/create',
-    handler: Actions.createActivity,
-    config: {
-        auth: {
-            mode: 'required'
-        }
-    }
-}, {
-    method: 'GET',
     path: '/logout',
     handler: Actions.logout
 }, {
     method: 'GET',
     path: '/register',
-    handler: Pages.register
+    handler: WebUsers.register
 }, {
     method: 'POST',
     path: '/register',

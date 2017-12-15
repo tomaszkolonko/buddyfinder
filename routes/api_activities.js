@@ -1,20 +1,20 @@
 'use strict';
 
-const Activities = require('../handlers/api_activities');
+const ApiActivities = require('../handlers/api_activities');
 
 module.exports = [{
     method: 'GET',
     path: '/api/activities',
-    handler: Activities.getAll
+    handler: ApiActivities.getAll
 }, {
     method: 'GET',
     path: '/api/activities/{name}',
-    handler: Activities.getOne
+    handler: ApiActivities.getOne
 }, {
     method: 'POST',
     path: '/api/activities',
     config: {
         auth: 'api'
     },
-    handler: Activities.createOne
+    handler: ApiActivities.createOne
 }];

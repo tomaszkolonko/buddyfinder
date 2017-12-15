@@ -17,4 +17,8 @@ module.exports = [{
         auth: 'api'
     },
     handler: ApiActivities.createOne
+}, {
+    method: 'POST',
+    path: '/api/activities/{_id}/star',
+    handler: ApiActivities.starIt
 }];

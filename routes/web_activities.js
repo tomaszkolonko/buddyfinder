@@ -25,5 +25,19 @@ module.exports = [{
 }, {
     method: 'GET',
     path: '/activities/{_id}',
-    handler: WebActivities.getOne
-}]
+    handler: WebActivities.getOne,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
+}, {
+    method: 'POST',
+    path: '/activities/{_id}/star',
+    handler: WebActivities.starIt,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
+}];

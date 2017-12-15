@@ -19,7 +19,7 @@ exports.getAll = function (request, reply) {
 exports.getOne = function (request, reply) {
 
     this.db.activity.findOne({
-        name: request.params.name
+        _id: request.params.name
     }, (err, doc) => {
         if(err) {
             return reply(Boom.wrap(err, 'Internal MongoDB error'));

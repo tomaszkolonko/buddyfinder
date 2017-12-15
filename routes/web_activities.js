@@ -24,6 +24,6 @@ module.exports = [{
     }
 }, {
     method: 'GET',
-    path: '/activities/{name}',
+    path: '/activities/{_id}',
     handler: WebActivities.getOne
 }]

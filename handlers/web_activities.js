@@ -4,7 +4,7 @@ const Wreck = require('wreck');
 
 exports.getOne = function (request, reply) {
 
-    const activityID = request.params.name;
+    const activityID = request.params._id;
 
     // http://localhost:3000/api/activities
     const apiUrl = this.apiBaseUrl + '/activities/' + activityID;

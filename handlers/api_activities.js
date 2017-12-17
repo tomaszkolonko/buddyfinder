@@ -34,6 +34,7 @@ exports.createOne = function (request, reply) {
 
     //Create a new activity
     activity._id = uuid.v1();
+    activity.popularity = 0;
 
     this.db.activity.save(activity, (err, result) => {
         if(err) {

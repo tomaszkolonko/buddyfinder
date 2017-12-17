@@ -1,8 +1,11 @@
 <div class="list-group">
     <h3 class="list-group-item-heading">{{activity.name}}</h3>
-    <span class="stars">{{activity.stars}} ★</span>
+    <span class="stars">{{activity.popularity}} ★</span>
     <p class="list-group-item-text">{{activity.description}}</p>
-    <form action="/activities/{{{activity._id}}}/star" method="POST">
-        <input type="submit" class="star-button" value="★ Star this activity ★">
+    <form action="/activities/{{{activity._id}}}/upvoteActivity" method="POST">
+        <input type="submit" class="star-button" value="★ Upvote this activity ★">
+    </form>
+    <form action="/activities/{{{activity._id}}}/downvoteActivity" method="POST">
+        <input type="submit" class="star-button" value="★ Downvote this activity ★">
     </form>
 </div>

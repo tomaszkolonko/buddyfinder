@@ -20,7 +20,33 @@ module.exports = [{
     config: {
         auth: {
             mode: 'required'
+        },
+        validate: {
+            payload: {
+                name: Joi.string().required(),
+                description: Joi.string().required(),
+                location: Joi.string().required(),
+                date: Joi.string().required(),
+                time: Joi.string().required()
+            },
+            options: {
+                abortEarly: false
+            },
+            failAction: function (request, reply, source, error) {
+                const errors = {};
+                const details = error.data.details;
+                for(let i = 0; i < details.length; ++i) {
+                    if(!errors.hasOwnProperty(details[i].path)) {
+                        errors[details[i].path] = details[i].message;
+                    }
+                }
+                reply.view('create', {
+                    errors: errors,
+                    values: request.payload
+                }).code(400);
+            }
         }
+
     }
 }, {
     method: 'GET',

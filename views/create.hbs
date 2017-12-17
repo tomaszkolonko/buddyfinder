@@ -14,13 +14,43 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">Activity:</label>
             <div class="col-sm-10">
-                <input type="text" name="name">
+                <input type="text" name="name" placeholder="Name of the activity" value="{{values.name}}">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="description">Description:</label>
             <div class="col-sm-10">
-                <input type="password" name="description">
+                <textarea id="activityDescription" name="description"
+                        placeholder="Some meaningful description what your activity is all about">
+                            {{values.description}}
+                </textarea>
+            </div>
+            <script>
+                function removeTextAreaWhiteSpace() {
+                    var myTxtArea = document.getElementById('activityDescription');
+                    // myTxtArea.value = myTxtArea.value.replace(/^\s*|\s*$/g,'');
+                    myTxtArea.value = myTxtArea.value.trim();
+                }
+                removeTextAreaWhiteSpace();
+            </script>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="location">Location:</label>
+            <div class="col-sm-10">
+                <input type="text" name="location" placeholder="CoWorkStreet 23, Geneva, Switzerland"
+                        value="{{values.location}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="date">Date:</label>
+            <div class="col-sm-10">
+                <input type="text" name="date" placeholder="12.12.2012" value="{{values.date}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="time">Time:</label>
+            <div class="col-sm-10">
+                <input type="text" name="time" placeholder="00:00" value="{{values.time}}">
             </div>
         </div>
         <div class="form-group">

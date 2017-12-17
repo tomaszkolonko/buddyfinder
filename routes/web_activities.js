@@ -42,7 +42,8 @@ module.exports = [{
                 }
                 reply.view('create', {
                     errors: errors,
-                    values: request.payload
+                    values: request.payload,
+                    user: request.auth.credentials
                 }).code(400);
             }
         }

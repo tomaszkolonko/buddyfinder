@@ -76,7 +76,8 @@ module.exports = [{
                 }
                 reply.view('register', {
                     errors: errors,
-                    values: request.payload
+                    values: request.payload,
+                    user: request.auth.credentials
                 }).code(400);
             }
         }

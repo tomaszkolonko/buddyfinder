@@ -1,15 +1,32 @@
-<div id="login-form">
-    <form action="/create" method='POST'>
-        <div class="form-control">
-            <label for="name">Name:</label>
-            <input type="text" name="name">
+<div class="row" id="formErrors">
+    <div class="col-sm-8 col-sm-offset-2">
+        {{#each errors}}
+            <p class="bg-danger">{{this}}</p>
+        {{/each}}
+    </div>
+</div>
+
+<div id="creation-form">
+    <div>
+        <h4 class="col-sm-offset-2">Create New Activity</h4>
+    </div>
+    <form action="/create" class="form-horizontal" method='POST'>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="name">Activity:</label>
+            <div class="col-sm-10">
+                <input type="text" name="name">
+            </div>
         </div>
-        <div class="form-control">
-            <label for="cooking_time">Description:</label>
-            <input type="text" name="cooking_time">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="description">Description:</label>
+            <div class="col-sm-10">
+                <input type="password" name="description">
+            </div>
         </div>
-        <div class="form-control">
-            <input type="submit" value="Submit">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" type="submit">Create Activity</button>
+            </div>
         </div>
     </form>
 </div>

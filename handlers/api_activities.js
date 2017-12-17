@@ -47,17 +47,14 @@ exports.createOne = function (request, reply) {
 
 exports.starIt = function (request, reply) {
 
-    this.db.activity.findOne({
-        _id: request.params._id
-    }, (err, doc) => {
+    this.db.activity.update({_id: request.params._id}, {$inc: {popularity: 1}}, (err, doc) => {
         if(err) {
             return reply(Boom.wrap(err, 'Internal MongoDB error'));
         }
         if(!doc) {
             return reply(Boom.notFound());
         }
-        console.log(doc);
+
+        reply(doc);
     });
-    // increment by one
-    // write it back
 };

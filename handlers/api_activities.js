@@ -18,9 +18,7 @@ exports.getAll = function (request, reply) {
 
 exports.getOne = function (request, reply) {
 
-    this.db.activity.findOne({
-        _id: request.params.name
-    }, (err, doc) => {
+    this.db.activity.findOne({_id: request.params.name}, (err, doc) => {
         if(err) {
             return reply(Boom.wrap(err, 'Internal MongoDB error'));
         }
@@ -45,7 +43,7 @@ exports.createOne = function (request, reply) {
     });
 };
 
-exports.starIt = function (request, reply) {
+exports.upvoteActivity = function (request, reply) {
 
     this.db.activity.update({_id: request.params._id}, {$inc: {popularity: 1}}, (err, doc) => {
         if(err) {
@@ -57,4 +55,30 @@ exports.starIt = function (request, reply) {
 
         reply(doc);
     });
+};
+exports.downvoteActivity = function (request, reply) {
+
+    this.db.activity.findOne({_id: request.params._id}, (err, doc) => {
+        if(err) {
+            return reply(Boom.wrap(err, 'Internal MongoDB error'));
+        }
+        if(!doc) {
+            return reply(Boom.notFound());
+        }
+        var decrementedPopularity = doc.popularity > 0 ? doc.popularity-1 : 0;
+
+        this.db.activity.update({_id: request.params._id}, {$set: {popularity: decrementedPopularity}}, (err, doc) => {
+            if(err) {
+                return reply(Boom.wrap(err, 'Internal MongoDB error'));
+            }
+            if(!doc) {
+                return reply(Boom.notFound());
+            }
+
+            reply(doc);
+        });
+
+    });
+
+
 };

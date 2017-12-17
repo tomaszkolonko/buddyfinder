@@ -33,8 +33,17 @@ module.exports = [{
     }
 }, {
     method: 'POST',
-    path: '/activities/{_id}/star',
-    handler: WebActivities.starIt,
+    path: '/activities/{_id}/upvoteActivity',
+    handler: WebActivities.upvoteActivity,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
+}, {
+    method: 'POST',
+    path: '/activities/{_id}/downvoteActivity',
+    handler: WebActivities.downvoteActivity,
     config: {
         auth: {
             mode: 'required'

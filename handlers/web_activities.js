@@ -43,12 +43,40 @@ exports.createActivity = function (request, reply) {
     });
 };
 
-exports.starIt = function (request, reply) {
+exports.upvoteActivity = function (request, reply) {
 
     const token = request.auth.credentials.token;
 
     const activityID = request.params._id;
-    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/star';
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/upvoteActivity';
+
+    console.log("apiUrl: " + apiUrl);
+
+    Wreck.post(apiUrl, {
+        payload: JSON.stringify(request.payload),
+        json: true,
+        headers: {
+            'Authorization': 'Bearer' + token
+        }
+    }, (err, res, payload) => {
+
+        if (err) {
+            throw err;
+        }
+
+        // it uses the layout for all views, and adds the required handlebars as needed
+        // into {{{content}}} placeholder !!!
+        reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
+
+    });
+};
+
+exports.downvoteActivity = function (request, reply) {
+
+    const token = request.auth.credentials.token;
+
+    const activityID = request.params._id;
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/downvoteActivity';
 
     console.log("apiUrl: " + apiUrl);
 

@@ -19,6 +19,10 @@ module.exports = [{
     handler: ApiActivities.createOne
 }, {
     method: 'POST',
-    path: '/api/activities/{_id}/star',
-    handler: ApiActivities.starIt
+    path: '/api/activities/{_id}/upvoteActivity',
+    handler: ApiActivities.upvoteActivity
+}, {
+    method: 'POST',
+    path: '/api/activities/{_id}/downvoteActivity',
+    handler: ApiActivities.downvoteActivity
 }];

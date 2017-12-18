@@ -38,4 +38,11 @@ module.exports = [{
     config: {
         auth: 'api'
     }
+}, {
+    method: 'POST',
+    path: '/api/activities/{_id}/signOff',
+    handler: ApiActivities.signOff,
+    config: {
+        auth: 'api'
+    }
 }];

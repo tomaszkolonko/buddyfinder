@@ -129,3 +129,46 @@ exports.signUp = function (request, reply) {
 
     });
 };
+
+exports.signOff = function (request, reply) {
+
+    console.log(request.params);
+    // Connect to the db
+    MongoClient.connect("mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder", function (err, db) {
+        if(err) {
+            throw err;
+        }
+
+        db.collection('users', (err, collection) => {
+            if(err) {
+                throw err;
+            }
+
+            collection.findOne({token: request.payload.userToken}, (err, user) => {
+                if(err) {
+                    throw err;
+                }
+                const name = user.username + "_" + user._id.substring(0,2);
+                const email = user.email;
+
+                db.collection('activity', (err, collection) => {
+                    if(err) {
+                        throw err;
+                    }
+console.log("inside correct part of sign off");
+                    collection.update({_id: request.params._id}, {$pull: {"users": {"user": name,
+                            "email": user.email,
+                            "token": user.token}}},
+                        (err, activity) => {
+                            if (err) {
+                                throw err;
+                            }
+                            reply(activity);
+                        }
+                    )
+                })
+            });
+        });
+
+    });
+};

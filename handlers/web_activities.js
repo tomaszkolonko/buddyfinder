@@ -19,6 +19,9 @@ exports.getOne = function (request, reply) {
             throw err;
         }
 
+        // checks if there is an array of users signed up for the activity and
+        // parses it for logged in users. Changes alreadySigendUp if logged in
+        // user is in this array. This is needed for buttons in handlebars template
         var alreadySignedUp = false;
         if(payload.users != undefined) {
             for(var index = 0; index < payload.users.length; index++) {
@@ -116,6 +119,30 @@ exports.signUp = function (request, reply) {
 
     const activityID = request.params._id;
     const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signUp';
+
+    Wreck.post(apiUrl, {
+        payload: JSON.stringify({userToken: token}),
+        json: true,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }, (err, res, payload) => {
+        if(err) {
+            throw err;
+        }
+        reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
+
+    })
+};
+
+exports.signOff = function (request, reply) {
+
+    const token = request.auth.credentials.token;
+
+    const activityID = request.params._id;
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signOff';
+    console.log(apiUrl);
+    console.log(token);
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify({userToken: token}),

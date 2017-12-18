@@ -85,4 +85,13 @@ module.exports = [{
             mode: 'required'
         }
     }
+}, {
+    method: 'POST',
+    path: '/activities/{_id}/signOff',
+    handler: WebActivities.signOff,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
 }];

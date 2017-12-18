@@ -137,7 +137,9 @@ exports.downvoteActivity = function (request, reply) {
  * @return JSON object of the activity the user signed up for
  */
 exports.signUp = function (request, reply) {
-
+    // FIXME: There are two ways how the DB is connected to, mongojs was chosen at first but
+    // FIXME: couldn't solve this problem here...
+    // TODO: refactor this method.
     console.log(request.params);
     // Connect to the db
     MongoClient.connect("mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder", function (err, db) {
@@ -189,7 +191,9 @@ exports.signUp = function (request, reply) {
  * @return JSON object of the activity the user signed off
  */
 exports.signOff = function (request, reply) {
-
+    // FIXME: There are two ways how the DB is connected to, mongojs was chosen at first but
+    // FIXME: couldn't solve this problem here...
+    // TODO: refactor this method.
     console.log(request.params);
     // Connect to the db
     MongoClient.connect("mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder", function (err, db) {

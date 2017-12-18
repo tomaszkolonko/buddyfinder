@@ -6,8 +6,14 @@ const Wreck = require('wreck');
 
 const MongoClient = require('mongodb').MongoClient;
 
-
-
+/**
+ * Finds all activities
+ *
+ * @param request
+ * @param reply
+ *
+ * @return JSON object of all activities
+ */
 exports.getAll = function (request, reply) {
 
     this.db.activity.find((err, docs) => {
@@ -20,6 +26,14 @@ exports.getAll = function (request, reply) {
     });
 };
 
+/**
+ * Finds one specific activity by _id and returns it as a JSON object
+ *
+ * @param request.params.name needs to be the activities _id
+ * @param reply
+ *
+ * @return JSON object of specified activity
+ */
 exports.getOne = function (request, reply) {
 
     this.db.activity.findOne({_id: request.params.name}, (err, doc) => {
@@ -33,10 +47,20 @@ exports.getOne = function (request, reply) {
     });
 };
 
+/**
+ * Creates a new activity that is handed in the request payload. _id is generated
+ * by this method.
+ *
+ * @param request.payload needs to be a full activity in JSON format from form
+ * @param reply
+ *
+ * @return JSON of new activity
+ */
 exports.createOne = function (request, reply) {
     const activity = request.payload;
 
-    //Create a new activity
+    // creates a new _id for the acitivity and sets the popularity to a
+    // starting value of 0
     activity._id = uuid.v1();
     activity.popularity = 0;
 
@@ -48,6 +72,14 @@ exports.createOne = function (request, reply) {
     });
 };
 
+/**
+ * Adds one start to specified activity
+ *
+ * @param request.params._id needs to specifiy the activity
+ * @param reply
+ *
+ * @return JSON of upvoted activity
+ */
 exports.upvoteActivity = function (request, reply) {
 
     this.db.activity.update({_id: request.params._id}, {$inc: {popularity: 1}}, (err, doc) => {
@@ -62,6 +94,14 @@ exports.upvoteActivity = function (request, reply) {
     });
 };
 
+/**
+ * Removes a star from specified activity
+ *
+ * @param request
+ * @param reply
+ *
+ * @return JSON of downvoted activity
+ */
 exports.downvoteActivity = function (request, reply) {
 
     this.db.activity.findOne({_id: request.params._id}, (err, doc) => {
@@ -87,6 +127,15 @@ exports.downvoteActivity = function (request, reply) {
     });
 };
 
+/**
+ * Signs up the user for an activity
+ *
+ * @param request.payload.userToken needs to have the token of currently logged in user
+ * @param request.params._id needs to have the _id of the activity for sign up
+ * @param reply
+ *
+ * @return JSON object of the activity the user signed up for
+ */
 exports.signUp = function (request, reply) {
 
     console.log(request.params);
@@ -130,6 +179,15 @@ exports.signUp = function (request, reply) {
     });
 };
 
+/**
+ * Signs off the user from an activity
+ *
+ * @param request.payload.userToken needs to have the token of currently logged in user
+ * @param request.params._id needs to have the _id of the activity for sign off
+ * @param reply
+ *
+ * @return JSON object of the activity the user signed off
+ */
 exports.signOff = function (request, reply) {
 
     console.log(request.params);
@@ -155,7 +213,7 @@ exports.signOff = function (request, reply) {
                     if(err) {
                         throw err;
                     }
-console.log("inside correct part of sign off");
+
                     collection.update({_id: request.params._id}, {$pull: {"users": {"user": name,
                             "email": user.email,
                             "token": user.token}}},

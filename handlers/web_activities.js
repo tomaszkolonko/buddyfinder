@@ -19,16 +19,15 @@ exports.getOne = function (request, reply) {
             throw err;
         }
 
-        console.log(payload);
         var alreadySignedUp = false;
-
-        for(var index = 0; index < payload.users.length; index++) {
-            if(token === payload.users[index].token) {
-                alreadySignedUp = true;
-                break;
+        if(payload.users != undefined) {
+            for(var index = 0; index < payload.users.length; index++) {
+                if(token === payload.users[index].token) {
+                    alreadySignedUp = true;
+                    break;
+                }
             }
         }
-        console.log(alreadySignedUp);
 
         // it uses the layout for all views, and adds the required handlebars as needed
         // into {{{content}}} placeholder !!!

@@ -4,6 +4,8 @@ const Wreck = require('wreck');
 
 exports.getOne = function (request, reply) {
 
+    const token = request.auth.credentials.token;
+
     const activityID = request.params._id;
 
     // http://localhost:3000/api/activities
@@ -18,6 +20,15 @@ exports.getOne = function (request, reply) {
         }
 
         console.log(payload);
+        var alreadySignedUp = false;
+
+        for(var index = 0; index < payload.users.length; index++) {
+            if(token === payload.users[index].token) {
+                alreadySignedUp = true;
+                break;
+            }
+        }
+        console.log(alreadySignedUp);
 
         // it uses the layout for all views, and adds the required handlebars as needed
         // into {{{content}}} placeholder !!!
@@ -26,6 +37,7 @@ exports.getOne = function (request, reply) {
             // an array of recipes (payload) and the user (if he/she is existing). These variables
             // are then used to populate the view!!!
             activity: payload,
+            alreadySignedUp: alreadySignedUp,
             user: request.auth.credentials
         });
     });
@@ -114,12 +126,8 @@ exports.signUp = function (request, reply) {
         }
     }, (err, res, payload) => {
         if(err) {
-            console.log("some error happened");
             throw err;
         }
-
-        console.log("inside web signup -> after API request");
-
         reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
 
     })

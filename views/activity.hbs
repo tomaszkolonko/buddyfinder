@@ -5,9 +5,20 @@
     <p class="list-group-item-text">Date: {{activity.date}}</p>
     <p class="list-group-item-text">Time: {{activity.time}}</p>
     <p class="list-group-item-text">Location: {{activity.location}}</p>
-    <form action="/activities/{{{activity._id}}}/signUp" method="POST">
-        <input type="submit" class="btn-primary signUp-button" value="Sign Up">
-    </form>
+    {{#each activity.users}}
+        <span>{{this.user}}  -  </span>
+    {{/each}}
+
+    {{#if alreadySignedUp}}
+        <form action="/activities/{{{activity._id}}}/signOff" method="POST">
+            <input type="submit" class="btn-danger signUp-button" value="Sign Off">
+        </form>
+    {{else}}
+        <form action="/activities/{{{activity._id}}}/signUp" method="POST">
+            <input type="submit" class="btn-success signUp-button" value="Sign Up">
+        </form>
+    {{/if}}
+    
     <form action="/activities/{{{activity._id}}}/upvoteActivity" method="POST">
         <input type="submit" class="star-button" value="★ Upvote this activity ★">
     </form>

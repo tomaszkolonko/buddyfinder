@@ -113,27 +113,19 @@ exports.signUp = function (request, reply) {
                         throw err;
                     }
 
-                    collection.update({_id: request.params._id}, {$push: {"users": {"user": name, "email": email}}},
+                    collection.update({_id: request.params._id}, {$push: {"users": {"user": name,
+                                                                                    "email": user.email,
+                                                                                    "token": user.token}}},
                         (err, activity) => {
-                            if(err) {
+                            if (err) {
                                 throw err;
                             }
-
-                            console.log("çççççç");
-                            console.log(request.params._id);
-                            console.log(activity);
-                    })
-
-
+                            reply(activity);
+                        }
+                    )
                 })
             });
         });
 
     });
-
-
-    console.log("inside API sign up");
-    console.log(request.params);
-    console.dir(request.payload);
-    reply({status: "ok"});
 };

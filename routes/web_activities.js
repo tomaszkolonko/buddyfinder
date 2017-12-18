@@ -76,4 +76,13 @@ module.exports = [{
             mode: 'required'
         }
     }
+}, {
+    method: 'POST',
+    path: '/activities/{_id}/signUp',
+    handler: WebActivities.signUp,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
 }];

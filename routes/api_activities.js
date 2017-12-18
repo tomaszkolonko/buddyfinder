@@ -13,16 +13,29 @@ module.exports = [{
 }, {
     method: 'POST',
     path: '/api/activities',
+    handler: ApiActivities.createOne,
     config: {
         auth: 'api'
-    },
-    handler: ApiActivities.createOne
+    }
 }, {
     method: 'POST',
     path: '/api/activities/{_id}/upvoteActivity',
-    handler: ApiActivities.upvoteActivity
+    handler: ApiActivities.upvoteActivity,
+    config: {
+        auth: 'api'
+    }
 }, {
     method: 'POST',
     path: '/api/activities/{_id}/downvoteActivity',
-    handler: ApiActivities.downvoteActivity
+    handler: ApiActivities.downvoteActivity,
+    config: {
+        auth: 'api'
+    }
+}, {
+    method: 'POST',
+    path: '/api/activities/{_id}/signUp',
+    handler: ApiActivities.signUp,
+    config: {
+        auth: 'api'
+    }
 }];

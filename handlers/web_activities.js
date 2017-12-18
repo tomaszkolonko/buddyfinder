@@ -56,7 +56,7 @@ exports.upvoteActivity = function (request, reply) {
         payload: JSON.stringify(request.payload),
         json: true,
         headers: {
-            'Authorization': 'Bearer' + token
+            'Authorization': 'Bearer ' + token
         }
     }, (err, res, payload) => {
 
@@ -84,7 +84,7 @@ exports.downvoteActivity = function (request, reply) {
         payload: JSON.stringify(request.payload),
         json: true,
         headers: {
-            'Authorization': 'Bearer' + token
+            'Authorization': 'Bearer ' + token
         }
     }, (err, res, payload) => {
 
@@ -97,4 +97,30 @@ exports.downvoteActivity = function (request, reply) {
         reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
 
     });
+};
+
+exports.signUp = function (request, reply) {
+
+    const token = request.auth.credentials.token;
+
+    const activityID = request.params._id;
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signUp';
+
+    Wreck.post(apiUrl, {
+        payload: JSON.stringify({userToken: token}),
+        json: true,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }, (err, res, payload) => {
+        if(err) {
+            console.log("some error happened");
+            throw err;
+        }
+
+        console.log("inside web signup -> after API request");
+
+        reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
+
+    })
 };

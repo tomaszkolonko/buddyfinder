@@ -37,47 +37,99 @@ issue HTTP requests with or without body (JSON).
 
 ## DB Schema
 
-The DB Schema should be build having the most frequent use cases in mind. Therefore the Schema should consist of one
-collection - the activity - and the users interested in this activity will be added to it or removed from it. So when Peter
-is interested in the activity running, with a regular single scan all users interested in this activity will be querried.
-First simple Schema iteration (up to date with code).
+The DB Schema should be build having the most frequent use cases in mind. Therefore the Schema should consist of two
+collections, namely the activity and user collections. Users interested in a specific activity will be added to it
+or removed from it. So when Peter is interested in the activity running, with a regular single scan all users interested
+in this activity will be querried.
+
+Activity:
 
 ```json
 {
-  "_id": "acitivity_id",
-  "name": "name_of_activity",
-  "description": "description_of_activity",
-  "tags": "[tag_1, tag_2]",
-  "popularity": "likes",
-  "users": [{
-    "user": "name",
-    "description": "description_of_user"
-  },{
-    "user": "name",
-    "description": "description_of_user"
-  }]
+    "_id": "eb7614e0-e32c-11e7-9259-4535fcd7dabd",
+    "name": "Tasting Beer",
+    "description": "Drinking Beer is not for losers, we meet up every Tuesday at the Trappist and taste their new beers. We discuss them and quite often the owner joins us and shares his amazing knowledge about this art of making and drinking beer.",
+    "location": "Rathausgasse 68, 3011 Bern",
+    "date": "every Tuesday",
+    "time": "20:30",
+    "popularity": 2,
+    "users": [
+        {
+            "user": "jane_0d",
+            "email": "jane@jane.com",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTM1OTA3MDJ9.EsQ1dDmfHse0zrwCmU5Y3fzMIDAoh7MHvc6hBS9L_zU"
+        }
+    ]
 }
 ```
-## Working Routes - API
-  
-  > GET /api/user/{name} -> stub for {name}'s public profile
+
+Users:
+```json
+{
+    "_id": "0d4a9710-e3d9-11e7-bfb3-f3bb92089474",
+    "username": "jane",
+    "email": "jane@jane.com",
+    "password": "$2a$10$01JachjThTWZpAxng5pe..t1OjTfvEAtZDQnYBKPHF6snUSm/E7y6",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTM1OTA3MDJ9.EsQ1dDmfHse0zrwCmU5Y3fzMIDAoh7MHvc6hBS9L_zU"
+}
+```
+
+## Working Routes - API_Activities
 
   > GET /api/activities -> lists all activities in JSON format
   
   > GET /api/activities/{name} -> lists details of one activity in JSON format
-    
+  
   > POST /api/activities -> Creates new Document (payload must be in JSON) in activity collection
   
-  > POST /api/login -> authenticate the user and return token
+  > POST /api/activities/{_id}/upvoteActivity -> rate up the activity
   
-## Working Routes - API
+  > POST /api/activities/{_id}/downvoteActivity -> rate down the activity
+  
+  > POST /api/activities/{_id}/signUp -> sign up for a specific activity
+  
+  > POST /api/activities/{_id}/signOff -> cancel the participation of one specific activity
+  
+
+## Working Routes - API_Users
+  
+  > GET /api/user/{name} -> stub for {name}'s public profile
+  
+  > POST /api/login -> log in with a existing user
+  
+  > POST /api/register -> register a new user
+
+  
+## Working Routes - Webpage_Activites
 
   > GET / -> landing page
   
-  > GET /login -> login page
-  > POST /login -> authentication of the user
+  > GET /create -> Form to create a new activity
+   
+  > POST /create -> Sends the filled form to the server for creation of activity
   
-  > GET /registration -> registration page
+  > GET /activities/{_id} -> Displays one detailed activity
   
-  > GET /create -> creation page
-  > POST /create -> create new activity
+  > POST /activities/{_id}/upvoteActivity -> upvotes the activity
+  
+  > POST /activities/{_id}/downvoteActivity -> downvotes the activity
+  
+  > POST /activities/{_id}/signUp -> signs the user up for an activity
+  
+  > POST /activities/{_id}/signOff -> signs the user off the activity
+  
+
+## Working Routes - Webpage_Users
+  
+  > GET /login -> Shows the login page
+  
+  > POST /login -> Authenticates the user
+  
+  > GET /logout -> Deletes the session
+  
+  > GET /registe -> Form to register new user
+  
+  > POST /registe -> Sends the filled form for registration
+  
+ 
+  

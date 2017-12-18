@@ -340,3 +340,7 @@ a.list-group-item:hover * {
 #formErrors > div > p {
     padding-left: 1em;
 }
+
+.signUp-button {
+    margin-top:10px;
+}

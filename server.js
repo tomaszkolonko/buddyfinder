@@ -43,6 +43,23 @@ const validateFunc = function (token, callback) {
     });
 };
 
+// Register onPreResponse extension point function that catches traffic in
+// request lifecycle just before the response is sent out and alters all
+// boom related errors for displaying with error.hbs view !!!
+server.ext('onPreResponse', (request, reply) => {
+    if(request.response.isBoom) {
+        const err = request.response;
+        const errName = err.output.payload.error;
+        const statusCode = err.output.payload.statusCode;
+
+        return reply.view('error', {
+            statusCode: statusCode,
+            errName: errName
+        }, {layout: false}).code(statusCode);
+    }
+    reply.continue();
+})
+
 server.register([{
     register: Good,
     options: {

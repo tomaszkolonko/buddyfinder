@@ -2,6 +2,7 @@
 
 const WebActivities = require('../handlers/web_activities');
 const Actions = require('../handlers/actions');
+const Boom = require('boom');
 const Joi = require('joi');
 
 module.exports = [{
@@ -93,5 +94,12 @@ module.exports = [{
         auth: {
             mode: 'required'
         }
+    }
+}, {
+    method: 'GET',
+    path: '/v4/yolo',
+    handler: function (request, reply) {
+        const err = Boom.notImplemented('Still working on this....');
+        reply(err);
     }
 }];

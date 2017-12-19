@@ -103,9 +103,8 @@ exports.upvoteActivity = function (request, reply) {
 
             // check if user is within activity upvoted array
             var userArrayUpVotedBy = activity.upvotedBy;
-            var userArrayDownVotedBy = activity.downvotedBy;
             var alreadyUpVoted = false;
-            var alsoDownVoted = false;
+
 
             if(userArrayUpVotedBy != undefined) {
                 for(var i = 0; i < userArrayUpVotedBy.length; i++) {
@@ -114,6 +113,10 @@ exports.upvoteActivity = function (request, reply) {
                     }
                 }
             }
+
+            // check if user is within activity downvoted array
+            var userArrayDownVotedBy = activity.downvotedBy;
+            var alsoDownVoted = false;
 
             if(userArrayDownVotedBy != undefined) {
                 for(var i = 0; i < userArrayDownVotedBy.length; i++) {
@@ -191,11 +194,10 @@ exports.downvoteActivity = function (request, reply) {
                 return reply(Boom.notFound());
             }
 
-            // check if user is within activity upvoted array
+            // check if user is within activity downvoted array
             var userArrayDownVotedBy = activity.downvotedBy;
-            var userArrayUpVotedBy = activity.upvotedBy;
             var alreadyDownVoted = false;
-            var alsoUpVoted = false;
+
 
             if(userArrayDownVotedBy != undefined) {
                 for(var i = 0; i < userArrayDownVotedBy.length; i++) {
@@ -204,6 +206,10 @@ exports.downvoteActivity = function (request, reply) {
                     }
                 }
             }
+
+            // check if user is within activity upvoted array
+            var userArrayUpVotedBy = activity.upvotedBy;
+            var alsoUpVoted = false;
 
             if(userArrayUpVotedBy != undefined) {
                 for(var i = 0; i < userArrayUpVotedBy.length; i++) {

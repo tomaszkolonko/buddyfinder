@@ -27,6 +27,12 @@ footer {
     margin-left: 10px;
 }
 
+.HeaderLogoWraper {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
 /*Home page styles*/
 /******************/
 
@@ -123,11 +129,9 @@ a.list-group-item:hover * {
     width: 250px;
     text-align: center;
     margin: auto;
-    background: #D9CB9E;
-    display: block;
     padding: 10px;
     color: #1E1E20;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .activity h3 {

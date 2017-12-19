@@ -32,7 +32,7 @@ exports.login = function (request, reply) {
         username: request.payload.username
     }, (err, doc) => {
         if(err) {
-            return reply(Boom.wrap(err, 'Internal MongoDB error'));
+            return reply(Boom.badData(err, 'Internal MongoDB error'));
         }
         if(!doc) {
             return reply(Boom.notFound());

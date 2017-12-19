@@ -12,7 +12,7 @@ const MongoClient = require('mongodb').MongoClient;
  * @param request
  * @param reply
  *
- * @return JSON object of all activities
+ * @returns JSON object of all activities
  */
 exports.getAll = function (request, reply) {
 
@@ -32,7 +32,7 @@ exports.getAll = function (request, reply) {
  * @param request.params.name needs to be the activities _id
  * @param reply
  *
- * @return JSON object of specified activity
+ * @returns JSON object of specified activity
  */
 exports.getOne = function (request, reply) {
 
@@ -54,7 +54,7 @@ exports.getOne = function (request, reply) {
  * @param request.payload needs to be a full activity in JSON format from form
  * @param reply
  *
- * @return JSON of new activity
+ * @returns JSON of new activity
  */
 exports.createOne = function (request, reply) {
     const activity = request.payload;
@@ -78,7 +78,7 @@ exports.createOne = function (request, reply) {
  * @param request.params._id needs to specifiy the activity
  * @param reply
  *
- * @return JSON of upvoted activity
+ * @returns JSON of upvoted activity
  */
 exports.upvoteActivity = function (request, reply) {
 
@@ -100,7 +100,7 @@ exports.upvoteActivity = function (request, reply) {
  * @param request
  * @param reply
  *
- * @return JSON of downvoted activity
+ * @returns JSON of downvoted activity
  */
 exports.downvoteActivity = function (request, reply) {
 
@@ -134,7 +134,7 @@ exports.downvoteActivity = function (request, reply) {
  * @param request.params._id needs to have the _id of the activity for sign up
  * @param reply
  *
- * @return JSON object of the activity the user signed up for
+ * @returns JSON object of the activity the user signed up for
  */
 exports.signUp = function (request, reply) {
     // FIXME: There are two ways how the DB is connected to, mongojs was chosen at first but
@@ -188,7 +188,7 @@ exports.signUp = function (request, reply) {
  * @param request.params._id needs to have the _id of the activity for sign off
  * @param reply
  *
- * @return JSON object of the activity the user signed off
+ * @returns JSON object of the activity the user signed off
  */
 exports.signOff = function (request, reply) {
     // FIXME: There are two ways how the DB is connected to, mongojs was chosen at first but

@@ -9,6 +9,12 @@
 
 const Wreck = require('wreck');
 
+/**
+ * Retrieves one activity through API (wreck)
+ *
+ * @param request.auth.credentials.token needs to be set with the users token
+ * @param reply
+ */
 exports.getOne = function (request, reply) {
 
     const token = request.auth.credentials.token;
@@ -55,6 +61,12 @@ exports.getOne = function (request, reply) {
 
 };
 
+/**
+ * Displays the create activity form
+ *
+ * @param request
+ * @param reply
+ */
 exports.createActivity = function (request, reply) {
 
     // it uses the layout for all views, and adds the required handlebars as needed
@@ -64,6 +76,13 @@ exports.createActivity = function (request, reply) {
     });
 };
 
+/**
+ * Upvotes the activity through API call
+ *
+ * @param request.auth.credentials.token needs to be set to the logged in user's token
+ * @param request.params._id needs to be set to the activities id
+ * @param reply
+ */
 exports.upvoteActivity = function (request, reply) {
 
     const token = request.auth.credentials.token;
@@ -92,6 +111,13 @@ exports.upvoteActivity = function (request, reply) {
     });
 };
 
+/**
+ * Downvotes the activity through API call
+ *
+ * @param request.auth.credentials.token needs to be set to the logged in user's token
+ * @param request.params._id needs to be set to the activities id
+ * @param reply
+ */
 exports.downvoteActivity = function (request, reply) {
 
     const token = request.auth.credentials.token;
@@ -120,6 +146,13 @@ exports.downvoteActivity = function (request, reply) {
     });
 };
 
+/**
+ * Signs up the currently logged in user for an activity
+ *
+ * @param request.auth.credentials.token needs to be set to the logged in user's token
+ * @param request.params._id needs to be set to the activities id
+ * @param reply
+ */
 exports.signUp = function (request, reply) {
 
     const token = request.auth.credentials.token;
@@ -142,6 +175,13 @@ exports.signUp = function (request, reply) {
     })
 };
 
+/**
+ * Signs off the currently logged in user from an activity
+ *
+ * @param request.auth.credentials.token needs to be set to the logged in user's token
+ * @param request.params._id needs to be set to the activities id
+ * @param reply
+ */
 exports.signOff = function (request, reply) {
 
     const token = request.auth.credentials.token;

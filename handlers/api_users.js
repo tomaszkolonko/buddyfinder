@@ -11,7 +11,7 @@ const JSONWebToken = require('jsonwebtoken');
  * @param request
  * @param reply
  *
- * @return stub...
+ * @returns stub...
  */
 exports.getOne = function (request, reply) {
     // TODO: needs a public profile page !!!
@@ -24,7 +24,7 @@ exports.getOne = function (request, reply) {
  * @param request
  * @param reply
  *
- * @return JSON object of user token
+ * @returns JSON object of user token
  */
 exports.login = function (request, reply) {
 
@@ -63,7 +63,7 @@ exports.login = function (request, reply) {
  * @param request.payload needs to be the JSON object of a user.
  * @param reply
  *
- * @return JSON object of the newly created user
+ * @returns JSON object of the newly created user
  */
 exports.register = function (request, reply) {
     const user = request.payload;

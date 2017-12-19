@@ -59,7 +59,7 @@ exports.getOne = function (request, reply) {
 exports.createOne = function (request, reply) {
     const activity = request.payload;
 
-    // creates a new _id for the acitivity and sets the popularity to a
+    // creates a new _id for the activity and sets the popularity to a
     // starting value of 0
     activity._id = uuid.v1();
     activity.popularity = 0;
@@ -76,57 +76,158 @@ exports.createOne = function (request, reply) {
  * Adds one start to specified activity
  *
  * @param request.params._id needs to specifiy the activity
+ * @param request.payload.userToken needs the token of the user
  * @param reply
  *
  * @returns JSON of upvoted activity
  */
 exports.upvoteActivity = function (request, reply) {
 
-    this.db.activity.update({_id: request.params._id}, {$inc: {popularity: 1}}, (err, doc) => {
-        if(err) {
-            // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
-            return reply(Boom.badData(err, 'Internal MongoDB error'));
-
-        }
-        if(!doc) {
+    this.db.users.findOne({token: request.payload.userToken}, (err, user) => {
+       if (err) {
+           // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
+           return reply(Boom.badData(err, 'Internal MongoDB error'));
+       }
+       if(!user) {
             return reply(Boom.notFound());
-        }
+       }
 
-        reply(doc);
+        this.db.activity.findOne({_id: request.params._id}, (err, activity) => {
+            if (err) {
+                // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
+                return reply(Boom.badData(err, 'Internal MongoDB error'));
+            }
+            if(!user) {
+                return reply(Boom.notFound());
+            }
+
+            // check if user is within activity upvoted array
+            var userArrayUpVotedBy = activity.upvotedBy;
+            var alreadyUpVoted = false;
+
+            if(userArrayUpVotedBy != undefined) {
+                for(var i = 0; i < userArrayUpVotedBy.length; i++) {
+                    if(userArrayUpVotedBy[i].userID === user._id) {
+                        alreadyUpVoted = true;
+                    }
+                }
+            }
+
+
+            if(alreadyUpVoted) {
+                reply({message: "already upvoted"});
+            } else {
+                this.db.activity.update({_id: request.params._id},
+                    {$inc: {popularity: 1}, $push: {"upvotedBy": {"userID": user._id}}}, (err, changedActivity) => {
+                        if(err) {
+                            // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
+                            return reply(Boom.badData(err, 'Internal MongoDB error'));
+
+                        }
+                        if(!changedActivity) {
+                            return reply(Boom.notFound());
+                        }
+
+                        reply(changedActivity);
+                    });
+            }
+
+        });
+
+
     });
 };
 
 /**
  * Removes a star from specified activity
  *
- * @param request
+ * @param request.params._id needs to specifiy the activity
+ * @param request.payload.userToken needs the token of the user
  * @param reply
  *
  * @returns JSON of downvoted activity
  */
 exports.downvoteActivity = function (request, reply) {
 
-    this.db.activity.findOne({_id: request.params._id}, (err, doc) => {
-        if(err) {
+    this.db.users.findOne({token: request.payload.userToken}, (err, user) => {
+        if (err) {
+            // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
             return reply(Boom.badData(err, 'Internal MongoDB error'));
         }
-        if(!doc) {
+        if (!user) {
             return reply(Boom.notFound());
         }
-        var decrementedPopularity = doc.popularity > 0 ? doc.popularity-1 : 0;
-
-        this.db.activity.update({_id: request.params._id}, {$set: {popularity: decrementedPopularity}}, (err, doc) => {
+        this.db.activity.findOne({_id: request.params._id}, (err, activity) => {
             if(err) {
                 return reply(Boom.badData(err, 'Internal MongoDB error'));
             }
-            if(!doc) {
+            if(!activity) {
                 return reply(Boom.notFound());
             }
 
-            reply(doc);
+            // check if user is within activity upvoted array
+            var userArrayDownVotedBy = activity.downvotedBy;
+            var userArrayUpVotedBy = activity.upvotedBy;
+            var alreadyDownVoted = false;
+            var alsoUpVoted = false;
+
+            if(userArrayDownVotedBy != undefined) {
+                for(var i = 0; i < userArrayDownVotedBy.length; i++) {
+                    if(userArrayDownVotedBy[i].userID === user._id) {
+                        alreadyDownVoted = true;
+                    }
+                }
+            }
+
+            if(userArrayUpVotedBy != undefined) {
+                for(var i = 0; i < userArrayUpVotedBy.length; i++) {
+                    if(userArrayUpVotedBy[i].userID === user._id) {
+                        alsoUpVoted = true;
+                    }
+                }
+            }
+
+
+            if(alreadyDownVoted) {
+                reply({message: "already downvoted"});
+            } else if(alsoUpVoted) {
+                var decrementedPopularity = activity.popularity > 0 ? activity.popularity-2 : 0;
+
+                this.db.activity.update({_id: request.params._id}, {$set: {popularity: decrementedPopularity},
+                                            $push: {"downvotedBy": {"userID": user._id}},
+                                            $pull: {"upvotedBy": {"userID": user._id}}}, (err, activity) => {
+                    if(err) {
+                        return reply(Boom.badData(err, 'Internal MongoDB error'));
+                    }
+                    if(!activity) {
+                        return reply(Boom.notFound());
+                    }
+
+                    reply(activity);
+                });
+            } else {
+                var decrementedPopularity = activity.popularity > 0 ? activity.popularity-1 : 0;
+
+                this.db.activity.update({_id: request.params._id}, {$set: {popularity: decrementedPopularity},
+                                            $push: {"downvotedBy": {"userID": user._id}}}, (err, activity) => {
+                    if(err) {
+                        return reply(Boom.badData(err, 'Internal MongoDB error'));
+                    }
+                    if(!activity) {
+                        return reply(Boom.notFound());
+                    }
+
+                    reply(activity);
+                });
+            }
+
+
+
         });
 
     });
+
+
 };
 
 /**

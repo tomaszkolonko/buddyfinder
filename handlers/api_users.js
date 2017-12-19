@@ -60,6 +60,7 @@ exports.login = function (request, reply) {
 /**
  * Register a new user
  *
+ * @param request
  * @param request.payload needs to be the JSON object of a user.
  * @param reply
  *

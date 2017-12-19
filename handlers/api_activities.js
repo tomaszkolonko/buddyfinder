@@ -51,6 +51,7 @@ exports.getOne = function (request, reply) {
  * Creates a new activity that is handed in the request payload. _id is generated
  * by this method.
  *
+ * @param request
  * @param request.payload needs to be a full activity in JSON format from form
  * @param reply
  *
@@ -75,6 +76,7 @@ exports.createOne = function (request, reply) {
 /**
  * Adds one start to specified activity
  *
+ * @param request
  * @param request.params._id needs to specifiy the activity
  * @param request.payload.userToken needs the token of the user
  * @param reply
@@ -102,12 +104,12 @@ exports.upvoteActivity = function (request, reply) {
             }
 
             // check if user is within activity upvoted array
-            var userArrayUpVotedBy = activity.upvotedBy;
-            var alreadyUpVoted = false;
+            let userArrayUpVotedBy = activity.upvotedBy;
+            let alreadyUpVoted = false;
 
 
-            if(userArrayUpVotedBy != undefined) {
-                for(var i = 0; i < userArrayUpVotedBy.length; i++) {
+            if(userArrayUpVotedBy !== undefined) {
+                for(let i = 0; i < userArrayUpVotedBy.length; i++) {
                     if(userArrayUpVotedBy[i].userID === user._id) {
                         alreadyUpVoted = true;
                     }
@@ -115,11 +117,11 @@ exports.upvoteActivity = function (request, reply) {
             }
 
             // check if user is within activity downvoted array
-            var userArrayDownVotedBy = activity.downvotedBy;
-            var alsoDownVoted = false;
+            let userArrayDownVotedBy = activity.downvotedBy;
+            let alsoDownVoted = false;
 
-            if(userArrayDownVotedBy != undefined) {
-                for(var i = 0; i < userArrayDownVotedBy.length; i++) {
+            if(userArrayDownVotedBy !== undefined) {
+                for(let i = 0; i < userArrayDownVotedBy.length; i++) {
                     if(userArrayDownVotedBy[i].userID === user._id) {
                         alsoDownVoted = true;
                     }
@@ -170,6 +172,7 @@ exports.upvoteActivity = function (request, reply) {
 /**
  * Removes a star from specified activity
  *
+ * @param request
  * @param request.params._id needs to specifiy the activity
  * @param request.payload.userToken needs the token of the user
  * @param reply
@@ -195,12 +198,12 @@ exports.downvoteActivity = function (request, reply) {
             }
 
             // check if user is within activity downvoted array
-            var userArrayDownVotedBy = activity.downvotedBy;
-            var alreadyDownVoted = false;
+            let userArrayDownVotedBy = activity.downvotedBy;
+            let alreadyDownVoted = false;
 
 
-            if(userArrayDownVotedBy != undefined) {
-                for(var i = 0; i < userArrayDownVotedBy.length; i++) {
+            if(userArrayDownVotedBy !== undefined) {
+                for(let i = 0; i < userArrayDownVotedBy.length; i++) {
                     if(userArrayDownVotedBy[i].userID === user._id) {
                         alreadyDownVoted = true;
                     }
@@ -208,11 +211,11 @@ exports.downvoteActivity = function (request, reply) {
             }
 
             // check if user is within activity upvoted array
-            var userArrayUpVotedBy = activity.upvotedBy;
-            var alsoUpVoted = false;
+            let userArrayUpVotedBy = activity.upvotedBy;
+            let alsoUpVoted = false;
 
-            if(userArrayUpVotedBy != undefined) {
-                for(var i = 0; i < userArrayUpVotedBy.length; i++) {
+            if(userArrayUpVotedBy !== undefined) {
+                for(let i = 0; i < userArrayUpVotedBy.length; i++) {
                     if(userArrayUpVotedBy[i].userID === user._id) {
                         alsoUpVoted = true;
                     }
@@ -223,7 +226,7 @@ exports.downvoteActivity = function (request, reply) {
             if(alreadyDownVoted) {
                 reply({message: "already downvoted"});
             } else if(alsoUpVoted) {
-                var decrementedPopularity = activity.popularity > 0 ? activity.popularity-2 : 0;
+                let decrementedPopularity = activity.popularity > 0 ? activity.popularity-2 : 0;
 
                 this.db.activity.update({_id: request.params._id}, {$set: {popularity: decrementedPopularity},
                                             $push: {"downvotedBy": {"userID": user._id}},
@@ -238,7 +241,7 @@ exports.downvoteActivity = function (request, reply) {
                     reply(activity);
                 });
             } else {
-                var decrementedPopularity = activity.popularity > 0 ? activity.popularity-1 : 0;
+                let decrementedPopularity = activity.popularity > 0 ? activity.popularity-1 : 0;
 
                 this.db.activity.update({_id: request.params._id}, {$set: {popularity: decrementedPopularity},
                                             $push: {"downvotedBy": {"userID": user._id}}}, (err, activity) => {
@@ -265,6 +268,7 @@ exports.downvoteActivity = function (request, reply) {
 /**
  * Signs up the user for an activity
  *
+ * @param request
  * @param request.payload.userToken needs to have the token of currently logged in user
  * @param request.params._id needs to have the _id of the activity for sign up
  * @param reply
@@ -319,6 +323,7 @@ exports.signUp = function (request, reply) {
 /**
  * Signs off the user from an activity
  *
+ * @param request
  * @param request.payload.userToken needs to have the token of currently logged in user
  * @param request.params._id needs to have the _id of the activity for sign off
  * @param reply

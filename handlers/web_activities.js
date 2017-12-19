@@ -79,6 +79,7 @@ exports.createActivity = function (request, reply) {
 /**
  * Upvotes the activity through API call
  *
+ * @param request
  * @param request.auth.credentials.token needs to be set to the logged in user's token
  * @param request.params._id needs to be set to the activities id
  * @param reply
@@ -114,6 +115,7 @@ exports.upvoteActivity = function (request, reply) {
 /**
  * Downvotes the activity through API call
  *
+ * @param request
  * @param request.auth.credentials.token needs to be set to the logged in user's token
  * @param request.params._id needs to be set to the activities id
  * @param reply
@@ -149,6 +151,7 @@ exports.downvoteActivity = function (request, reply) {
 /**
  * Signs up the currently logged in user for an activity
  *
+ * @param request
  * @param request.auth.credentials.token needs to be set to the logged in user's token
  * @param request.params._id needs to be set to the activities id
  * @param reply

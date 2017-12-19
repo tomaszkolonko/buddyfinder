@@ -93,7 +93,7 @@ exports.upvoteActivity = function (request, reply) {
     console.log("apiUrl: " + apiUrl);
 
     Wreck.post(apiUrl, {
-        payload: JSON.stringify(request.payload),
+        payload: JSON.stringify({userToken: token}),
         json: true,
         headers: {
             'Authorization': 'Bearer ' + token
@@ -128,7 +128,7 @@ exports.downvoteActivity = function (request, reply) {
     console.log("apiUrl: " + apiUrl);
 
     Wreck.post(apiUrl, {
-        payload: JSON.stringify(request.payload),
+        payload: JSON.stringify({userToken: token}),
         json: true,
         headers: {
             'Authorization': 'Bearer ' + token
@@ -178,8 +178,7 @@ exports.signUp = function (request, reply) {
 /**
  * Signs off the currently logged in user from an activity
  *
- * @param request.auth.credentials.token needs to be set to the logged in user's token
- * @param request.params._id needs to be set to the activities id
+ * @param request
  * @param reply
  */
 exports.signOff = function (request, reply) {

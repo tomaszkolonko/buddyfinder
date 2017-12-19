@@ -103,7 +103,9 @@ exports.upvoteActivity = function (request, reply) {
 
             // check if user is within activity upvoted array
             var userArrayUpVotedBy = activity.upvotedBy;
+            var userArrayDownVotedBy = activity.downvotedBy;
             var alreadyUpVoted = false;
+            var alsoDownVoted = false;
 
             if(userArrayUpVotedBy != undefined) {
                 for(var i = 0; i < userArrayUpVotedBy.length; i++) {
@@ -113,12 +115,21 @@ exports.upvoteActivity = function (request, reply) {
                 }
             }
 
+            if(userArrayDownVotedBy != undefined) {
+                for(var i = 0; i < userArrayDownVotedBy.length; i++) {
+                    if(userArrayDownVotedBy[i].userID === user._id) {
+                        alsoDownVoted = true;
+                    }
+                }
+            }
+
 
             if(alreadyUpVoted) {
                 reply({message: "already upvoted"});
-            } else {
+            } else if(alsoDownVoted) {
                 this.db.activity.update({_id: request.params._id},
-                    {$inc: {popularity: 1}, $push: {"upvotedBy": {"userID": user._id}}}, (err, changedActivity) => {
+                    {$inc: {popularity: 2}, $push: {"upvotedBy": {"userID": user._id}},
+                                            $pull: {"downvotedBy": {"userID": user._id}}}, (err, changedActivity) => {
                         if(err) {
                             // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
                             return reply(Boom.badData(err, 'Internal MongoDB error'));
@@ -130,7 +141,22 @@ exports.upvoteActivity = function (request, reply) {
 
                         reply(changedActivity);
                     });
+            } else {
+                this.db.activity.update({_id: request.params._id},
+                    {$inc: {popularity: 1}, $push: {"upvotedBy": {"userID": user._id}}}, (err, changedActivity) => {
+                        if (err) {
+                            // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
+                            return reply(Boom.badData(err, 'Internal MongoDB error'));
+
+                        }
+                        if (!changedActivity) {
+                            return reply(Boom.notFound());
+                        }
+
+                        reply(changedActivity);
+                    });
             }
+
 
         });
 

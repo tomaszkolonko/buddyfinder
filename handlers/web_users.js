@@ -69,11 +69,45 @@ exports.login = function (request, reply) {
 /**
  *
  */
-exports.publicProfile = function (request, reply) {
+exports.myProfile = function (request, reply) {
 
-    const token = request.auth.credentials._id;
+    const token = request.auth.credentials.token;
 
-    reply.view('profile');
+    // http://localhost:3000/api/activities
+    const apiUrl = this.apiBaseUrl + '/myProfile';
+    console.log(apiUrl);
+    console.log(token);
+    console.log("************");
+
+    // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
+    // correctly parsed and can be used as payload.
+    Wreck.post(apiUrl, {
+        payload: JSON.stringify({userToken: token}),
+        json: true,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }, (err, res, payload) => {
+
+        if (err) {
+            throw err;
+        }
+
+        console.log("inside WRECK of WEB myProfile");
+        console.log(payload);
+
+        // it uses the layout for all views, and adds the required handlebars as needed
+        // into {{{content}}} placeholder !!!
+        reply.view('profile', {
+            // the view is created out of layout and index!!! Then two variables are defined
+            // an array of recipes (payload) and the user (if he/she is existing). These variables
+            // are then used to populate the view!!!
+            userData: payload,
+            user: request.auth.credentials // makes the login logout buttons work !!!
+        });
+    });
+
+
 
 
 };

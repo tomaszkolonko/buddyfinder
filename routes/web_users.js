@@ -108,6 +108,36 @@ module.exports = [{
     config: {
         auth: {
             mode: 'required'
+        },
+        validate: {
+            payload: {
+                firstname: Joi.string().allow(''),
+                lastname: Joi.string().allow(''),
+                description: Joi.string().allow(''),
+                canton: Joi.string().allow(''),
+                country: Joi.string().allow(''),
+                email: Joi.string().email().required(),
+                website: Joi.string().allow(''),
+                phone: Joi.string().allow(''),
+                password: Joi.string().min(6).max(8).allow('')
+            },
+            options: {
+                abortEarly: false
+            },
+            failAction: function (request, reply, source, error) {
+                const errors = {};
+                const details = error.data.details;
+                for(let i = 0; i < details.length; ++i) {
+                    if (!errors.hasOwnProperty(details[i].path)) {
+                        errors[details[i].path] = details[i].message;
+                    }
+                }
+                reply.view('editProfile', {
+                    errors: errors,
+                    userData: request.payload,
+                    user: request.auth.credentials
+                }).code(400);
+            }
         }
     }
 }];

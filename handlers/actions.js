@@ -70,3 +70,27 @@ exports.logout = function (request, reply) {
     request.cookieAuth.clear();
     reply.redirect(this.webBaseUrl);
 };
+
+exports.editMyProfile = function (request, reply) {
+
+    const apiUrl = this.apiBaseUrl + '/myProfile/edit';
+
+    const token = request.auth.credentials.token;
+
+    request.payload["token"] = token;
+
+    Wreck.post(apiUrl, {
+        payload: JSON.stringify(request.payload),
+        json: true,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }, (err, res, payload) => {
+        if (err) {
+            console.log("THROWING ERROR");
+            throw err;
+        }
+        console.log("AFTER ACTIONS EDIT PROFILE");
+        reply.redirect("/myProfile");
+    });
+};

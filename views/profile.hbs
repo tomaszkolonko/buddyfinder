@@ -5,14 +5,15 @@
         </div>
         <div class="col-sm-4 col-md-4">
             <blockquote>
-                <p>{{userData.firstName}}, {{userData.lastName}}</p>
+                <p>{{userData.firstname}}, {{userData.lastname}}</p>
                 <small>
+                    <cite title="description">{{userData.description}}</cite>
+                    <br/><br/>
                     <cite title="Source Title">{{userData.canton}}, {{userData.country}}<i class="glyphicon glyphicon-map-marker"></i></cite>
                 </small>
             </blockquote>
             <p> <i class="glyphicon glyphicon-envelope"></i> {{userData.email}}
                 <br/> <i class="glyphicon glyphicon-globe"></i> {{userData.website}}
-                <br /> <i class="glyphicon glyphicon-gift"></i> DATE
             </p>
         </div>
     </div>

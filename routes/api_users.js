@@ -49,4 +49,11 @@ module.exports = [{
     config: {
         auth: 'api'
     }
+}, {
+    method: 'POST',
+    path: '/api/myProfile/edit',
+    handler: ApiUsers.editMyProfile,
+    config: {
+        auth: 'api'
+    }
 }];

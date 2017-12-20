@@ -21,8 +21,8 @@ server.app.db.on('connect', function() {
 });
 
 server.bind({
-    apiBaseUrl: 'http://localhost:3000/api',
-    webBaseUrl: 'http://localhost:3000',
+    apiBaseUrl: server.info.uri + '/api',
+    webBaseUrl: server.info.uri,
     db: server.app.db
 });
 
@@ -117,5 +117,7 @@ server.register([{
             throw err;
         }
         server.log('info', 'Server running at: ' + server.info.uri);
+        console.log(server.info.host);
+        console.log(server.info.uri);
     });
 });

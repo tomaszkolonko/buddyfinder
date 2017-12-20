@@ -5,13 +5,20 @@
         </div>
         <div class="col-sm-4 col-md-4">
             <blockquote>
-                <p>{{userData.email}}</p>
-                <p>{{userData.username}}</p> <small><cite title="Source Title">PLACE, COUNTRY<i class="glyphicon glyphicon-map-marker"></i></cite></small>
+                <p>{{userData.firstName}}, {{userData.lastName}}</p>
+                <small>
+                    <cite title="Source Title">{{userData.canton}}, {{userData.country}}<i class="glyphicon glyphicon-map-marker"></i></cite>
+                </small>
             </blockquote>
-            <p> <i class="glyphicon glyphicon-envelope"></i> EMAIL
-                <br
-                /> <i class="glyphicon glyphicon-globe"></i> WEBPAGE
-                <br /> <i class="glyphicon glyphicon-gift"></i> DATE</p>
+            <p> <i class="glyphicon glyphicon-envelope"></i> {{userData.email}}
+                <br/> <i class="glyphicon glyphicon-globe"></i> {{userData.website}}
+                <br /> <i class="glyphicon glyphicon-gift"></i> DATE
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <a class="header-button" href="/myProfile/edit">Edit</a>
         </div>
     </div>
 </div>

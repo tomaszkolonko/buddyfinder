@@ -83,7 +83,8 @@ exports.login = function (request, reply) {
             }
 
             reply({
-                token: user.token
+                token: user.token,
+                userID: user._id
             });
         });
     });

@@ -90,3 +90,22 @@ exports.register = function (request, reply) {
         });
     });
 };
+
+exports.myProfile = function (request, reply) {
+    console.log("inside API myProfile");
+    console.log(request.payload);
+
+    this.db.users.findOne({token: request.payload.userToken}, (err, user) => {
+        if (err) {
+            // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
+            return reply(Boom.badData(err, 'Internal MongoDB error'));
+        }
+        if (!user) {
+            return reply(Boom.notFound());
+        }
+
+        console.log("so far so good");
+        console.log(user);
+        reply(user);
+    });
+};

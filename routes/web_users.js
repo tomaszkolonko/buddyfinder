@@ -85,8 +85,8 @@ module.exports = [{
     handler: Actions.register
 }, {
     method: 'GET',
-    path: '/{userID}/public',
-    handler: WebUsers.publicProfile,
+    path: '/myProfile',
+    handler: WebUsers.myProfile,
     config: {
         auth: {
             mode: 'required'

@@ -42,4 +42,11 @@ module.exports = [{
         }
     },
     handler: ApiUsers.register
+}, {
+    method: 'POST',
+    path: '/api/myProfile',
+    handler: ApiUsers.myProfile,
+    config: {
+        auth: 'api'
+    }
 }];

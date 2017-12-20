@@ -19,6 +19,30 @@ exports.getOne = function (request, reply) {
 };
 
 /**
+ * Gets the public profile of a user
+ *
+ * @param request
+ * @param reply
+ *
+ * @returns stub...
+ */
+exports.getUser = function (request, reply) {
+
+};
+
+/**
+ * Gets the public profile of a user
+ *
+ * @param request
+ * @param reply
+ *
+ * @returns stub...
+ */
+exports.updateUser = function (request, reply) {
+
+};
+
+/**
  * Authenticates the user and creates a session token on the client
  *
  * @param request

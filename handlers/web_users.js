@@ -106,8 +106,10 @@ exports.myProfile = function (request, reply) {
             user: request.auth.credentials // makes the login logout buttons work !!!
         });
     });
-
-
-
-
 };
+
+exports.editMyProfile = function (request, reply) {
+    const token = request.auth.credentials.token;
+
+
+}

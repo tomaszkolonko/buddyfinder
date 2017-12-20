@@ -92,4 +92,22 @@ module.exports = [{
             mode: 'required'
         }
     }
+}, {
+    method: 'GET',
+    path: '/myProfile/edit',
+    handler: WebUsers.editMyProfile,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
+}, {
+    method: 'POST',
+    path: '/myProfile/edit',
+    handler: Actions.editMyProfile,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
 }];

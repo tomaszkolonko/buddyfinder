@@ -29,6 +29,7 @@ exports.getAll = function (request, reply) {
 /**
  * Finds one specific activity by _id and returns it as a JSON object
  *
+ * @param request
  * @param request.params.name needs to be the activities _id
  * @param reply
  *
@@ -255,9 +256,6 @@ exports.downvoteActivity = function (request, reply) {
                     reply(activity);
                 });
             }
-
-
-
         });
 
     });

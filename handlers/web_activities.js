@@ -12,6 +12,7 @@ const Wreck = require('wreck');
 /**
  * Retrieves one activity through API (wreck)
  *
+ * @param request
  * @param request.auth.credentials.token needs to be set with the users token
  * @param reply
  */
@@ -35,8 +36,8 @@ exports.getOne = function (request, reply) {
         // checks if there is an array of users signed up for the activity and
         // parses it for logged in users. Changes alreadySigendUp if logged in
         // user is in this array. This is needed for buttons in handlebars template
-        var alreadySignedUp = false;
-        if(payload.users != undefined) {
+        let alreadySignedUp = false;
+        if(payload.users !== undefined) {
             for(var index = 0; index < payload.users.length; index++) {
                 if(token === payload.users[index].token) {
                     alreadySignedUp = true;

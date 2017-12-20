@@ -58,7 +58,7 @@ server.ext('onPreResponse', (request, reply) => {
         }, {layout: false}).code(statusCode);
     }
     reply.continue();
-})
+});
 
 server.register([{
     register: Good,

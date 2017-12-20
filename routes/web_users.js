@@ -83,4 +83,13 @@ module.exports = [{
         }
     },
     handler: Actions.register
+}, {
+    method: 'GET',
+    path: '/{userID}/public',
+    handler: WebUsers.publicProfile,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
 }];

@@ -64,3 +64,16 @@ exports.login = function (request, reply) {
     // into {{{content}}} placeholder !!!
     reply.view('login');
 };
+
+
+/**
+ *
+ */
+exports.publicProfile = function (request, reply) {
+
+    const token = request.auth.credentials._id;
+
+    reply.view('profile');
+
+
+};

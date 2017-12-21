@@ -5,9 +5,13 @@
     <p class="list-group-item-text">Date: {{activity.date}}</p>
     <p class="list-group-item-text">Time: {{activity.time}}</p>
     <p class="list-group-item-text">Location: {{activity.location}}</p>
+    <p class="list-group-item-test">Already signed up:
     {{#each activity.users}}
-        <span>{{this.user}}  -  </span>
+        <a href="/{{{this.id}}}/publicProfile">
+            <button type="button" class="btn-sm btn-info">{{this.user}}</button>
+        </a>
     {{/each}}
+    </p>
 
     {{#if alreadySignedUp}}
         <form action="/activities/{{{activity._id}}}/signOff" method="POST">

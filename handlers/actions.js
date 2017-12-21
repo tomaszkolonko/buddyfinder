@@ -79,7 +79,7 @@ exports.register = function (request, reply) {
     // FIXME
     let apiUrl = '';
     if(heroku_mode) {
-        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/register';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api/register';
     } else {
         apiUrl = this.apiBaseUrl + '/register';
     }
@@ -95,7 +95,7 @@ exports.register = function (request, reply) {
         }
         // FIXME
         if(heroku_mode) {
-            reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/login');
+            reply.redirect('http://blooming-fortress-94706.herokuapp.com/login');
         } else {
             reply.redirect(this.webBaseUrl + '/login');
         }

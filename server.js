@@ -23,8 +23,8 @@ server.app.db.on('connect', function() {
 server.bind({
     //apiBaseUrl: server.info.uri + '/api',
     //webBaseUrl: server.info.uri,
-    apiBaseUrl: 'http://blooming-fortress-94706.herokuapp.com/api',
-    webBaseUrl: 'http://blooming-fortress-94706.herokuapp.com',
+    apiBaseUrl: 'http://blooming-fortress-94706.herokuapp.com:3000/api',
+    webBaseUrl: 'http://blooming-fortress-94706.herokuapp.com:3000',
     db: server.app.db
 });
 

@@ -5,6 +5,7 @@ const Wreck = require('wreck');
 exports.login = function (request, reply) {
     
     const apiUrl = this.apiBaseUrl + '/login';
+    console.log(request.payload);
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify(request.payload),

@@ -26,6 +26,9 @@ server.bind({
     db: server.app.db
 });
 
+console.log(this.apiBaseUrl);
+console.log(this.webBaseUrl);
+
 const validateFunc = function (token, callback) {
     server.app.db.users.findOne({
         token: token

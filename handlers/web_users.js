@@ -37,7 +37,9 @@ exports.home = function (request, reply) {
             // an array of recipes (payload) and the user (if he/she is existing). These variables
             // are then used to populate the view!!!
             activity: payload,
-            user: request.auth.credentials
+            user: request.auth.credentials,
+            yoloAPI: this.apiBaseUrl,
+            yoloBase: this.webBaseUrl
         });
     });
 };
@@ -75,9 +77,6 @@ exports.myProfile = function (request, reply) {
 
     // http://localhost:3000/api/activities
     const apiUrl = this.apiBaseUrl + '/myProfile';
-    console.log(apiUrl);
-    console.log(token);
-    console.log("************");
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.

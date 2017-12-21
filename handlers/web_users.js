@@ -24,7 +24,7 @@ exports.home = function (request, reply) {
     // FIXME
     let apiUrl = '';
     if(heroku_mode) {
-        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api/activities';
     } else {
         apiUrl = this.apiBaseUrl + '/activities';
     }
@@ -88,7 +88,7 @@ exports.myProfile = function (request, reply) {
     // FIXME
     let apiUrl = '';
     if(heroku_mode) {
-        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api/myProfile';
     } else {
         apiUrl = this.apiBaseUrl + '/myProfile';
     }
@@ -137,7 +137,7 @@ exports.editMyProfile = function (request, reply) {
     // FIXME
     let apiUrl = '';
     if(heroku_mode) {
-        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api/myProfile';
     } else {
         apiUrl = this.apiBaseUrl + '/myProfile';
     }

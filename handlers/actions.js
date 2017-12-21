@@ -36,8 +36,11 @@ exports.login = function (request, reply) {
             token: payload.token
         });
         // FIXME
-        // reply.redirect('http://blooming-fortress-94706.herokuapp.com');
-        reply.redirect(this.webBaseUrl);
+        if(heroku_mode) {
+            reply.redirect('http://blooming-fortress-94706.herokuapp.com');
+        } else {
+            reply.redirect(this.webBaseUrl);
+        }
     });
 };
 

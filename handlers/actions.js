@@ -25,7 +25,7 @@ exports.login = function (request, reply) {
         request.cookieAuth.set({
             token: payload.token
         });
-        reply.redirect(this.webBaseUrl);
+        reply.redirect('http://blooming-fortress-94706.herokuapp.com');
     });
 };
 

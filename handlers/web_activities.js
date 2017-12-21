@@ -26,10 +26,11 @@ exports.getOne = function (request, reply) {
 
     // http://localhost:3000/api/activities
     // FIXME
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID;
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID;
     } else {
-        const apiUrl = this.apiBaseUrl + '/activities/' + activityID;
+        apiUrl = this.apiBaseUrl + '/activities/' + activityID;
     }
     //
 
@@ -100,10 +101,11 @@ exports.upvoteActivity = function (request, reply) {
 
     const activityID = request.params._id;
     // FIXME
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/upvoteActivity';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/upvoteActivity';
     } else {
-        const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/upvoteActivity';
+        apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/upvoteActivity';
     }
     //
 
@@ -150,10 +152,11 @@ exports.downvoteActivity = function (request, reply) {
 
     const activityID = request.params._id;
     // FIXME
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/downvoteActivity';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/downvoteActivity';
     } else {
-        const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/downvoteActivity';
+        apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/downvoteActivity';
     }
     //
 
@@ -200,10 +203,11 @@ exports.signUp = function (request, reply) {
 
     const activityID = request.params._id;
     // FIXME
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/signUp';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/signUp';
     } else {
-        const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signUp';
+        apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signUp';
     }
     //
 
@@ -242,10 +246,11 @@ exports.signOff = function (request, reply) {
 
     const activityID = request.params._id;
     // FIXME
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/signOff';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/signOff';
     } else {
-        const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signOff';
+        apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signOff';
     }
     //
 

@@ -22,10 +22,11 @@ exports.home = function (request, reply) {
 
     // http://localhost:3000/api/activities
     // FIXME
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
     } else {
-        const apiUrl = this.apiBaseUrl + '/activities';
+        apiUrl = this.apiBaseUrl + '/activities';
     }
     //
 
@@ -85,11 +86,11 @@ exports.myProfile = function (request, reply) {
 
     // http://localhost:3000/api/activities
     // FIXME
-
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
     } else {
-        const apiUrl = this.apiBaseUrl + '/myProfile';
+        apiUrl = this.apiBaseUrl + '/myProfile';
     }
     //
 
@@ -134,10 +135,11 @@ exports.editMyProfile = function (request, reply) {
 
     // http://localhost:3000/api/activities
     // FIXME
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
     } else {
-        const apiUrl = this.apiBaseUrl + '/myProfile';
+        apiUrl = this.apiBaseUrl + '/myProfile';
     }
     //
 
@@ -173,10 +175,11 @@ exports.publicProfile = function (request, reply) {
     console.log("YOLO BATMAN BEFORE " + token);
 
     // FIXME
+    let apiUrl = '';
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + request.params._id + '/publicProfile';
+        apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + request.params._id + '/publicProfile';
     } else {
-        const apiUrl = this.apiBaseUrl + '/' + request.params._id + '/publicProfile';
+        apiUrl = this.apiBaseUrl + '/' + request.params._id + '/publicProfile';
     }
     //
 

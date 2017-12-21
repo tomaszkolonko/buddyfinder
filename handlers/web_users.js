@@ -174,7 +174,7 @@ exports.publicProfile = function (request, reply) {
 
     // FIXME
     if(heroku_mode) {
-        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + {{request.params._id}} + '/publicProfile';
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + request.params._id + '/publicProfile';
     } else {
         const apiUrl = this.apiBaseUrl + '/' + request.params._id + '/publicProfile';
     }

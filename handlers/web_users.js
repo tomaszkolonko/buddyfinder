@@ -18,7 +18,7 @@ const Wreck = require('wreck');
 exports.home = function (request, reply) {
 
     // http://localhost:3000/api/activities
-    const apiUrl = this.apiBaseUrl + '/activities';
+    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -38,8 +38,8 @@ exports.home = function (request, reply) {
             // are then used to populate the view!!!
             activity: payload,
             user: request.auth.credentials,
-            yoloAPI: this.apiBaseUrl,
-            yoloBase: this.webBaseUrl
+            yoloAPI: 'http://blooming-fortress-94706.herokuapp.com/api',
+            yoloBase: 'http://blooming-fortress-94706.herokuapp.com'
         });
     });
 };
@@ -76,7 +76,7 @@ exports.myProfile = function (request, reply) {
     const token = request.auth.credentials.token;
 
     // http://localhost:3000/api/activities
-    const apiUrl = this.apiBaseUrl + '/myProfile';
+    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -117,7 +117,7 @@ exports.editMyProfile = function (request, reply) {
     const token = request.auth.credentials.token;
 
     // http://localhost:3000/api/activities
-    const apiUrl = this.apiBaseUrl + '/myProfile';
+    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.

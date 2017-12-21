@@ -24,7 +24,7 @@ server.bind({
     //apiBaseUrl: server.info.uri + '/api',
     //webBaseUrl: server.info.uri,
     apiBaseUrl: 'http://blooming-fortress-94706.herokuapp.com/api',
-    webBaseUrl: 'http://blooming-fortress-94706.herokuapp.com'
+    webBaseUrl: 'http://blooming-fortress-94706.herokuapp.com',
     db: server.app.db
 });
 

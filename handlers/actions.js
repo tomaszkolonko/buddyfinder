@@ -2,11 +2,17 @@
 
 const Wreck = require('wreck');
 
+const heroku_mode = true;
+
 exports.login = function (request, reply) {
 
     // FIXME
-    //const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api/login';
-    const apiUrl = this.apiBaseUrl + '/login';
+    if(heroku_mode) {
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api/login';
+    } else {
+        const apiUrl = this.apiBaseUrl + '/login';
+    }
+
 
     console.log(request.payload);
 
@@ -37,8 +43,11 @@ exports.login = function (request, reply) {
 exports.createActivity = function (request, reply) {
 
     // FIXME
-    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
-    const apiUrl = this.apiBaseUrl + '/activities';
+    if(heroku_mode) {
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
+    } else {
+        const apiUrl = this.apiBaseUrl + '/activities';
+    }
 
 
     const token = request.auth.credentials.token;
@@ -54,15 +63,25 @@ exports.createActivity = function (request, reply) {
             throw err;
         }
         // FIXME
-        // reply.redirect('http://blooming-fortress-94706.herokuapp.com');
-        reply.redirect(this.webBaseUrl);
+        if(heroku_mode) {
+            reply.redirect('http://blooming-fortress-94706.herokuapp.com');
+        } else {
+            reply.redirect(this.webBaseUrl);
+        }
+        //
+
     });
 };
 
 exports.register = function (request, reply) {
     // FIXME
-    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/register';
-    const apiUrl = this.apiBaseUrl + '/register';
+    if(heroku_mode) {
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/register';
+    } else {
+        const apiUrl = this.apiBaseUrl + '/register';
+    }
+    //
+
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify(request.payload),
@@ -72,8 +91,13 @@ exports.register = function (request, reply) {
             throw err;
         }
         // FIXME
-        // reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/login');
-        reply.redirect(this.webBaseUrl + '/login');
+        if(heroku_mode) {
+            reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/login');
+        } else {
+            reply.redirect(this.webBaseUrl + '/login');
+        }
+        //
+
     })
 
 }
@@ -82,15 +106,24 @@ exports.logout = function (request, reply) {
 
     request.cookieAuth.clear();
     // FIXME
-    // reply.redirect('http://blooming-fortress-94706.herokuapp.com');
-    reply.redirect(this.webBaseUrl);
+    if(heroku_mode) {
+        reply.redirect('http://blooming-fortress-94706.herokuapp.com');
+    } else {
+        reply.redirect(this.webBaseUrl);
+    }
+    //
+
 };
 
 exports.editMyProfile = function (request, reply) {
 
     // FIXME
-    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile/edit';
-    const apiUrl = this.apiBaseUrl + '/myProfile/edit';
+    if(heroku_mode) {
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile/edit';
+    } else {
+        const apiUrl = this.apiBaseUrl + '/myProfile/edit';
+    }
+
 
     const token = request.auth.credentials.token;
 
@@ -108,7 +141,6 @@ exports.editMyProfile = function (request, reply) {
             throw err;
         }
         console.log("AFTER ACTIONS EDIT PROFILE");
-        // FIXME
         reply.redirect("/myProfile");
     });
 };

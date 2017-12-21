@@ -9,6 +9,9 @@
 
 const Wreck = require('wreck');
 
+const heroku_mode = true;
+
+
 /**
  * Displays the landing page with all activities listed
  *
@@ -19,8 +22,13 @@ exports.home = function (request, reply) {
 
     // http://localhost:3000/api/activities
     // FIXME
-    //const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
-    const apiUrl = this.apiBaseUrl + '/activities';
+    if(heroku_mode) {
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
+    } else {
+        const apiUrl = this.apiBaseUrl + '/activities';
+    }
+    //
+
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -77,8 +85,14 @@ exports.myProfile = function (request, reply) {
 
     // http://localhost:3000/api/activities
     // FIXME
-    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
-    const apiUrl = this.apiBaseUrl + '/myProfile';
+
+    if(heroku_mode) {
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+    } else {
+        const apiUrl = this.apiBaseUrl + '/myProfile';
+    }
+    //
+
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -120,8 +134,13 @@ exports.editMyProfile = function (request, reply) {
 
     // http://localhost:3000/api/activities
     // FIXME
-    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
-    const apiUrl = this.apiBaseUrl + '/myProfile';
+    if(heroku_mode) {
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+    } else {
+        const apiUrl = this.apiBaseUrl + '/myProfile';
+    }
+    //
+
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -154,8 +173,13 @@ exports.publicProfile = function (request, reply) {
     console.log("YOLO BATMAN BEFORE " + token);
 
     // FIXME
-    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + {{request.params._id}} + '/publicProfile';
-    const apiUrl = this.apiBaseUrl + '/' + request.params._id + '/publicProfile';
+    if(heroku_mode) {
+        const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + {{request.params._id}} + '/publicProfile';
+    } else {
+        const apiUrl = this.apiBaseUrl + '/' + request.params._id + '/publicProfile';
+    }
+    //
+
     console.log(apiUrl);
 
     Wreck.get(apiUrl, { json: true,

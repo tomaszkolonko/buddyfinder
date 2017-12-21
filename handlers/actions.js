@@ -7,7 +7,7 @@ exports.login = function (request, reply) {
     const apiUrl = this.apiBaseUrl + '/login';
     console.log(request.payload);
 
-    Wreck.post(apiUrl, {
+    Wreck.post('http://blooming-fortress-94706.herokuapp.com/api/login', {
         payload: JSON.stringify(request.payload),
         json: true
     }, (err, res, payload) => {
@@ -19,7 +19,7 @@ exports.login = function (request, reply) {
         }
 
         if (res.statusCode !== 200) {
-            return reply.redirect(this.webBaseUrl + '/login');
+            return reply.redirect('http://blooming-fortress-94706.herokuapp.com/api/login');
         }
 
         request.cookieAuth.set({

@@ -18,7 +18,7 @@ module.exports = [{
         validate: {
             payload: {
                 username: Joi.string().required(),
-                password: Joi.string().min(6).max(8).required()
+                password: Joi.string().min(6).required()
             },
             options: {
                 abortEarly: false
@@ -53,6 +53,13 @@ module.exports = [{
     method: 'POST',
     path: '/api/myProfile/edit',
     handler: ApiUsers.editMyProfile,
+    config: {
+        auth: 'api'
+    }
+}, {
+    method: 'GET',
+    path: '/api/{_id}/publicProfile',
+    handler: ApiUsers.publicProfile,
     config: {
         auth: 'api'
     }

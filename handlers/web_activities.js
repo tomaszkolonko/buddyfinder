@@ -23,7 +23,9 @@ exports.getOne = function (request, reply) {
     const activityID = request.params._id;
 
     // http://localhost:3000/api/activities
-    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID;
+    // FIXME
+    //const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID;
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID;
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -90,7 +92,9 @@ exports.upvoteActivity = function (request, reply) {
     const token = request.auth.credentials.token;
 
     const activityID = request.params._id;
-    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/upvoteActivity';
+    // FIXME
+    //const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/upvoteActivity';
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/upvoteActivity';
 
     console.log("apiUrl: " + apiUrl);
 
@@ -108,7 +112,9 @@ exports.upvoteActivity = function (request, reply) {
 
         // it uses the layout for all views, and adds the required handlebars as needed
         // into {{{content}}} placeholder !!!
-        reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/activities/' + activityID, {user: request.auth.credentials});
+        // FIXME
+        //reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/activities/' + activityID, {user: request.auth.credentials});
+        reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
 
     });
 };
@@ -126,7 +132,9 @@ exports.downvoteActivity = function (request, reply) {
     const token = request.auth.credentials.token;
 
     const activityID = request.params._id;
-    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/downvoteActivity';
+    // FIXME
+    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/downvoteActivity';
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/downvoteActivity';
 
     console.log("apiUrl: " + apiUrl);
 
@@ -144,7 +152,9 @@ exports.downvoteActivity = function (request, reply) {
 
         // it uses the layout for all views, and adds the required handlebars as needed
         // into {{{content}}} placeholder !!!
-        reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/activities/' + activityID, {user: request.auth.credentials});
+        // FIXME
+        //reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/activities/' + activityID, {user: request.auth.credentials});
+        reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
 
     });
 };
@@ -162,7 +172,9 @@ exports.signUp = function (request, reply) {
     const token = request.auth.credentials.token;
 
     const activityID = request.params._id;
-    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/signUp';
+    // FIXME
+    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/signUp';
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signUp';
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify({userToken: token}),
@@ -174,7 +186,9 @@ exports.signUp = function (request, reply) {
         if(err) {
             throw err;
         }
-        reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/activities/' + activityID, {user: request.auth.credentials});
+        // FIXME
+        // reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/activities/' + activityID, {user: request.auth.credentials});
+        reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
 
     })
 };
@@ -190,7 +204,9 @@ exports.signOff = function (request, reply) {
     const token = request.auth.credentials.token;
 
     const activityID = request.params._id;
-    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/signOff';
+    // FIXME
+    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities/' + activityID + '/signOff';
+    const apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signOff';
     console.log(apiUrl);
     console.log(token);
 
@@ -204,7 +220,9 @@ exports.signOff = function (request, reply) {
         if(err) {
             throw err;
         }
-        reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/activities/' + activityID, {user: request.auth.credentials});
+        // FIXME
+        //reply.redirect('http://blooming-fortress-94706.herokuapp.com' + '/activities/' + activityID, {user: request.auth.credentials});
+        reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
 
     })
 };

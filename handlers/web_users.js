@@ -18,11 +18,13 @@ const Wreck = require('wreck');
 exports.home = function (request, reply) {
 
     // http://localhost:3000/api/activities
-    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
+    // FIXME
+    //const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/activities';
+    const apiUrl = this.apiBaseUrl + '/activities';
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
-    Wreck.get('http://blooming-fortress-94706.herokuapp.com/api/activities', { json: true }, (err, res, payload) => {
+    Wreck.get(apiUrl, { json: true }, (err, res, payload) => {
 
         if (err) {
             throw err;
@@ -74,7 +76,9 @@ exports.myProfile = function (request, reply) {
     const token = request.auth.credentials.token;
 
     // http://localhost:3000/api/activities
-    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+    // FIXME
+    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+    const apiUrl = this.apiBaseUrl + '/myProfile';
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -115,7 +119,9 @@ exports.editMyProfile = function (request, reply) {
     const token = request.auth.credentials.token;
 
     // http://localhost:3000/api/activities
-    const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+    // FIXME
+    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + '/myProfile';
+    const apiUrl = this.apiBaseUrl + '/myProfile';
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -140,4 +146,40 @@ exports.editMyProfile = function (request, reply) {
             user: request.auth.credentials // makes the login logout buttons work !!!
         });
     });
+};
+
+exports.publicProfile = function (request, reply) {
+    const token = request.auth.credentials.token;
+
+    console.log("YOLO BATMAN BEFORE " + token);
+
+    // FIXME
+    // const apiUrl = 'http://blooming-fortress-94706.herokuapp.com/api' + {{request.params._id}} + '/publicProfile';
+    const apiUrl = this.apiBaseUrl + '/' + request.params._id + '/publicProfile';
+    console.log(apiUrl);
+
+    Wreck.get(apiUrl, { json: true,
+                        headers: {
+                        'Authorization': 'Bearer ' + token }
+    }, (err, res, payload) => {
+
+        if (err) {
+            throw err;
+        }
+
+        console.log("YOLO BATMAN AFTER ");
+        console.log(payload);
+
+
+        // it uses the layout for all views, and adds the required handlebars as needed
+        // into {{{content}}} placeholder !!!
+        reply.view('profile', {
+            // the view is created out of layout and index!!! Then two variables are defined
+            // an array of recipes (payload) and the user (if he/she is existing). These variables
+            // are then used to populate the view!!!
+            userData: payload,
+            user: request.auth.credentials
+        });
+    });
+
 };

@@ -207,8 +207,19 @@ exports.editMyProfile = function(request, reply) {
             }
             reply(user);
         });
-
     });
-
-
 };
+
+exports.publicProfile = function (request, reply) {
+    console.log("INSIDE JOB ONE");
+    this.db.users.findOne({_id: request.params._id}, (err, user) => {
+        if (err) {
+            // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(
+            return reply(Boom.badData(err, 'Internal MongoDB error'));
+        }
+        if (!user) {
+            return reply(Boom.notFound());
+        }
+        reply(user);
+    });
+}

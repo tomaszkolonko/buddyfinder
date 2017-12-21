@@ -140,4 +140,13 @@ module.exports = [{
             }
         }
     }
+}, {
+    method: 'GET',
+    path: '/{_id}/publicProfile',
+    handler: WebUsers.publicProfile,
+    config: {
+        auth: {
+            mode: 'required'
+        }
+    }
 }];

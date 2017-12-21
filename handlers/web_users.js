@@ -37,9 +37,7 @@ exports.home = function (request, reply) {
             // an array of recipes (payload) and the user (if he/she is existing). These variables
             // are then used to populate the view!!!
             activity: payload,
-            user: request.auth.credentials,
-            yoloAPI: 'http://blooming-fortress-94706.herokuapp.com/api',
-            yoloBase: 'http://blooming-fortress-94706.herokuapp.com'
+            user: request.auth.credentials
         });
     });
 };

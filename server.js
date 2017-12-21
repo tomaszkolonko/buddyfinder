@@ -7,7 +7,7 @@ const mongojs = require('mongojs');
 const mongoDBconnectionURL = "mongodb://Jonny:TheFearless@ds237475.mlab.com:37475/buddyfinder";
 
 const server = new Hapi.Server();
-server.connection({port: 3000 });
+server.connection({port : process.env.PORT || 3000 });
 
 const collections = ['activity', 'users'];
 server.app.db = mongojs(mongoDBconnectionURL, collections);  //<--- Added

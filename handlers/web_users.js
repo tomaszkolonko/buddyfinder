@@ -22,7 +22,7 @@ exports.home = function (request, reply) {
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
-    Wreck.get(apiUrl, { json: true }, (err, res, payload) => {
+    Wreck.get('http://blooming-fortress-94706.herokuapp.com/api/activities', { json: true }, (err, res, payload) => {
 
         if (err) {
             throw err;

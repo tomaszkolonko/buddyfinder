@@ -302,6 +302,7 @@ exports.signUp = function (request, reply) {
                     }
 
                     collection.update({_id: request.params._id}, {$push: {"users": {"user": name,
+                                                                                    "id" : user._id,
                                                                                     "email": user.email,
                                                                                     "token": user.token}}},
                         (err, activity) => {

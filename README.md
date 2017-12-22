@@ -33,14 +33,17 @@ Interact with the server from your browser.
 
 - Postman is a very nice Chrome add-on or standalone application that allows to easily interact with the server and
 issue HTTP requests with or without body (JSON).
-- cURL (https://curl.haxx.se/docs/manpage.html)
+- cURL (https://curl.haxx.se/docs/manpage.html).
+- WebStorm, Atom and other IDE's
 
 ## DB Schema
 
-The DB Schema should be build having the most frequent use cases in mind. Therefore the Schema should consist of two
+The DB Schema should be built having the most frequent use cases in mind. Therefore the Schema should consist of two
 collections, namely the activity and user collections. Users interested in a specific activity will be added to it
-or removed from it. So when Peter is interested in the activity running, with a regular single scan all users interested
-in this activity will be querried.
+or removed from it, the same goes for upvoting and downvoting an activity. Querrying all users that are interested in
+a sepcific activity will therefore require only to find this one activity and parse the content in order to retrieve
+all interested people. Downvoting an upvoting is also activitiy specific and the information is simply pushed into the
+collection when somebodey likes or dislikes it.
 
 Activity:
 
@@ -50,14 +53,41 @@ Activity:
     "name": "Tasting Beer",
     "description": "Drinking Beer is not for losers, we meet up every Tuesday at the Trappist and taste their new beers. We discuss them and quite often the owner joins us and shares his amazing knowledge about this art of making and drinking beer.",
     "location": "Rathausgasse 68, 3011 Bern",
-    "date": "every Tuesday",
+    "date": "Tuesday",
     "time": "20:30",
-    "popularity": 2,
+    "popularity": 3,
+    "tag": "Going Out",
+    "img": "https://www.sbs.com.au/news/sites/sbs.com.au.news/files/4d9151aa-b327-4d91-8232-a6f3da7f6f02_1466841316.jpeg",
     "users": [
         {
             "user": "jane_0d",
             "email": "jane@jane.com",
             "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTM1OTA3MDJ9.EsQ1dDmfHse0zrwCmU5Y3fzMIDAoh7MHvc6hBS9L_zU"
+        },
+        {
+            "user": "john_e1",
+            "id": "e1267e10-e59a-11e7-bf5e-55d794aba371",
+            "email": "john@john.com",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTM3ODM5MDJ9.KMU6GScF2Yv0jF9U-bNprYZMnYs3-Ooz5ywhd33mkBY"
+        },
+        {
+            "user": "tomasz_51",
+            "id": "51e19390-e5a2-11e7-a4e8-5333f6814603",
+            "email": "asdf@asdf.com",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTM3ODcwOTd9.RGtB8D7UYo6H7s6iP-2XYYwSsmjXwYW5HryR8HkJePQ"
+        }
+    ],
+    "upvotedBy": [
+        {
+            "userID": "51e19390-e5a2-11e7-a4e8-5333f6814603"
+        }
+    ],
+    "downvotedBy": [
+        {
+            "userID": "685f3a60-e646-11e7-a4e2-8550bbcb6b20"
+        },
+        {
+            "userID": "378da210-e59b-11e7-bf5e-55d794aba371"
         }
     ]
 }
@@ -66,11 +96,19 @@ Activity:
 Users:
 ```json
 {
-    "_id": "0d4a9710-e3d9-11e7-bfb3-f3bb92089474",
-    "username": "jane",
-    "email": "jane@jane.com",
-    "password": "$2a$10$01JachjThTWZpAxng5pe..t1OjTfvEAtZDQnYBKPHF6snUSm/E7y6",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTM1OTA3MDJ9.EsQ1dDmfHse0zrwCmU5Y3fzMIDAoh7MHvc6hBS9L_zU"
+    "_id": "e1267e10-e59a-11e7-bf5e-55d794aba371",
+    "username": "john",
+    "firstname": "John",
+    "lastname": "Peterson",
+    "description": "Really nice guy",
+    "canton": "Bern",
+    "country": "Switzerland",
+    "email": "john@john.com",
+    "website": "",
+    "phone": "",
+    "password": "$2a$10$7R2SXi6vMHTVqFjDDmtyeu6zxwo2p.K5VOmieTFFsjqT/1DcwPp0C",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTM3ODM5MDJ9.KMU6GScF2Yv0jF9U-bNprYZMnYs3-Ooz5ywhd33mkBY",
+    "picture": "../images/default/male_w.png"
 }
 ```
 

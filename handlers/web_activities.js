@@ -215,9 +215,6 @@ exports.signUp = function (request, reply) {
         } else {
             reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
         }
-        //
-
-
     })
 };
 
@@ -256,8 +253,5 @@ exports.signOff = function (request, reply) {
         } else {
             reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
         }
-        //
-
-
     })
 };

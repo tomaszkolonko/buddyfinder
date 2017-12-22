@@ -123,6 +123,12 @@ exports.register = function (request, reply) {
     });
 };
 
+/**
+ * Displays the myProfile of the logged in user
+ *
+ * @param request
+ * @param reply
+ */
 exports.myProfile = function (request, reply) {
 
     this.db.users.findOne({token: request.payload.userToken}, (err, user) => {
@@ -137,6 +143,13 @@ exports.myProfile = function (request, reply) {
     });
 };
 
+/**
+ * Copies and updates the user from the form input. Where no input is given, the current
+ * values are copied from database before they are written back to it.
+ *
+ * @param request
+ * @param reply
+ */
 exports.editMyProfile = function(request, reply) {
 
     this.db.users.findOne({token: request.payload.token}, (err, user) => {
@@ -199,6 +212,12 @@ exports.editMyProfile = function(request, reply) {
     });
 };
 
+/**
+ * shows the public profile page of user specified in pramas (URL)
+ *
+ * @param request
+ * @param reply
+ */
 exports.publicProfile = function (request, reply) {
     this.db.users.findOne({_id: request.params._id}, (err, user) => {
         if (err) {
@@ -210,4 +229,4 @@ exports.publicProfile = function (request, reply) {
         }
         reply(user);
     });
-}
+};

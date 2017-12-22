@@ -4,6 +4,12 @@ const Wreck = require('wreck');
 
 const heroku_mode = true;
 
+/**
+ * Login function
+ *
+ * @param request
+ * @param reply
+ */
 exports.login = function (request, reply) {
 
     // FIXME
@@ -39,6 +45,12 @@ exports.login = function (request, reply) {
     });
 };
 
+/**
+ * Creates the activity from form data
+ *
+ * @param request
+ * @param reply
+ */
 exports.createActivity = function (request, reply) {
 
     // FIXME
@@ -72,6 +84,12 @@ exports.createActivity = function (request, reply) {
     });
 };
 
+/**
+ * Register a new user from form data
+ *
+ * @param request
+ * @param reply
+ */
 exports.register = function (request, reply) {
     // FIXME
     let apiUrl = '';
@@ -98,6 +116,12 @@ exports.register = function (request, reply) {
 
 };
 
+/**
+ * Log out the user - delete it's session
+ *
+ * @param request
+ * @param reply
+ */
 exports.logout = function (request, reply) {
 
     request.cookieAuth.clear();
@@ -107,10 +131,14 @@ exports.logout = function (request, reply) {
     } else {
         reply.redirect(this.webBaseUrl);
     }
-    //
-
 };
 
+/**
+ * Edit profile of logged in user
+ *
+ * @param request
+ * @param reply
+ */
 exports.editMyProfile = function (request, reply) {
 
     // FIXME

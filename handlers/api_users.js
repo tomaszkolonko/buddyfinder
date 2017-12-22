@@ -164,6 +164,7 @@ exports.editMyProfile = function(request, reply) {
         let userPhone = request.payload.phone;
         let userPassword = user.password;
         let userToken = user.token;
+        let userPicture = user.picture;
 
         console.log(userID);
         console.log(userName);
@@ -196,7 +197,8 @@ exports.editMyProfile = function(request, reply) {
                     website: userWebsite,
                     phone: userPhone,
                     password: userPassword,
-                    token: userToken
+                    token: userToken,
+                    picture: userPicture
                     }}, (err, user) => {
             if (err) {
                 // TODO: does not display if it happens.... it goes to reply(doc) furhter down ;(

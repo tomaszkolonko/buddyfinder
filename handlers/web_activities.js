@@ -107,10 +107,6 @@ exports.upvoteActivity = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/upvoteActivity';
     }
-    //
-
-
-    console.log("apiUrl: " + apiUrl);
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify({userToken: token}),
@@ -158,10 +154,6 @@ exports.downvoteActivity = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/downvoteActivity';
     }
-    //
-
-
-    console.log("apiUrl: " + apiUrl);
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify({userToken: token}),
@@ -183,9 +175,6 @@ exports.downvoteActivity = function (request, reply) {
         } else {
             reply.redirect(this.webBaseUrl + '/activities/' + activityID, {user: request.auth.credentials});
         }
-        //;
-
-
     });
 };
 
@@ -209,8 +198,6 @@ exports.signUp = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signUp';
     }
-    //
-
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify({userToken: token}),
@@ -252,10 +239,6 @@ exports.signOff = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/activities/' + activityID + '/signOff';
     }
-    //
-
-    console.log(apiUrl);
-    console.log(token);
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify({userToken: token}),

@@ -14,15 +14,10 @@ exports.login = function (request, reply) {
         apiUrl = this.apiBaseUrl + '/login';
     }
 
-
-    console.log(request.payload);
-
     Wreck.post(apiUrl, {
         payload: JSON.stringify(request.payload),
         json: true
     }, (err, res, payload) => {
-
-        console.log(payload);
 
         if (err) {
             throw err;
@@ -73,7 +68,6 @@ exports.createActivity = function (request, reply) {
         } else {
             reply.redirect(this.webBaseUrl);
         }
-        //
 
     });
 };
@@ -86,8 +80,6 @@ exports.register = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/register';
     }
-    //
-
 
     Wreck.post(apiUrl, {
         payload: JSON.stringify(request.payload),
@@ -102,11 +94,9 @@ exports.register = function (request, reply) {
         } else {
             reply.redirect(this.webBaseUrl + '/login');
         }
-        //
-
     })
 
-}
+};
 
 exports.logout = function (request, reply) {
 
@@ -144,10 +134,8 @@ exports.editMyProfile = function (request, reply) {
         }
     }, (err, res, payload) => {
         if (err) {
-            console.log("THROWING ERROR");
             throw err;
         }
-        console.log("AFTER ACTIONS EDIT PROFILE");
         reply.redirect("/myProfile");
     });
 };

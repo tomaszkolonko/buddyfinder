@@ -11,7 +11,6 @@ const Wreck = require('wreck');
 
 const heroku_mode = true;
 
-
 /**
  * Displays the landing page with all activities listed
  *
@@ -28,8 +27,6 @@ exports.home = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/activities';
     }
-    //
-
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -92,8 +89,6 @@ exports.myProfile = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/myProfile';
     }
-    //
-
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -142,8 +137,6 @@ exports.editMyProfile = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/myProfile';
     }
-    //
-
 
     // Wreck is used to fetch the JSON and parse it. Big advantage is, that it is
     // correctly parsed and can be used as payload.
@@ -182,9 +175,6 @@ exports.publicProfile = function (request, reply) {
     } else {
         apiUrl = this.apiBaseUrl + '/' + request.params._id + '/publicProfile';
     }
-    //
-
-    console.log(apiUrl);
 
     Wreck.get(apiUrl, { json: true,
                         headers: {
@@ -194,10 +184,6 @@ exports.publicProfile = function (request, reply) {
         if (err) {
             throw err;
         }
-
-        console.log("YOLO BATMAN AFTER ");
-        console.log(payload);
-
 
         // it uses the layout for all views, and adds the required handlebars as needed
         // into {{{content}}} placeholder !!!

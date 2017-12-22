@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-2 col-md-2">
-            <img src="../images/default/male_w.png" alt="" class="img-rounded img-responsive" />
+            <img src={{userData.picture}} alt="" class="img-rounded img-responsive" />
         </div>
         <div class="col-sm-4 col-md-4">
             <blockquote>
@@ -18,8 +18,10 @@
         </div>
     </div>
     <div class="row">
+        {{#if myProfile}}
         <div class="col-sm-2">
             <a class="header-button" href="/myProfile/edit">Edit</a>
         </div>
+        {{/if}}
     </div>
 </div>

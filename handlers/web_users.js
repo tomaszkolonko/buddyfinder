@@ -119,6 +119,7 @@ exports.myProfile = function (request, reply) {
             // an array of recipes (payload) and the user (if he/she is existing). These variables
             // are then used to populate the view!!!
             userData: payload,
+            myProfile: true,
             user: request.auth.credentials // makes the login logout buttons work !!!
         });
     });
